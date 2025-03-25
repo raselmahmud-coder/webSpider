@@ -1,0 +1,5 @@
+browser_use
+selenium
+dotenv
+pydantic
+langchain_openai
