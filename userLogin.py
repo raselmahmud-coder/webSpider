@@ -70,8 +70,30 @@ def main():
         # Load old session into the browser
         if load_cookies(driver):
             print('Previous session loaded successfully')
-            driver.get("https://www.zhipin.com")
+            driver.get("https://www.zhipin.com/web/geek/job-recommend")
             wait_for_page_load(driver)
+            # Wait for and find the job apply button
+        try:
+            # Adjust the selector based on the actual button on the page
+            # Common selectors might be class names like 'btn-apply', 'deliver-resume', etc.
+            get_rec_jobs = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, ".rec-job-list"))  # .job-card-wrap active
+            )
+            print("Rec job list:", get_rec_jobs)
+            wait_for_page_load(driver)
+
+            applyBtn = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, ".op-btn op-btn-chat"))
+            )
+            print("Found apply button:", applyBtn)
+
+            # apply_button.click()
+
+        except Exception as e:
+            print(f"Could not find apply button: {str(e)}")
+
         else:
             print('\nPlease login manually using WeChat or Phone OTP.')
             print('You have 60 seconds to complete the login process.')
@@ -100,7 +122,7 @@ def main():
         # Get page content
         page_text = driver.find_element("tag name", "body").text
         print("\nPage Content:")
-        print(page_text[:1000])  # Print first 1000 characters
+        print(page_text[:10])  # Print first 1000 characters
 
         # Get all links
         links = driver.find_elements("tag name", "a")

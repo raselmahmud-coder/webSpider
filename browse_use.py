@@ -1,21 +1,21 @@
 import asyncio
+import os
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from pydantic import SecretStr
 from browser_use import Agent, Browser, BrowserConfig
 load_dotenv()
 
-
+apiKey = os.getenv('DEEPSEEK_API_KEY')
 # Initialize the model
 llm = ChatOpenAI(base_url='https://api.deepseek.com/v1', model='deepseek-chat',
-                 api_key=SecretStr("sk-f2160dd3725149cb953599e6642d969b"))
+                 api_key=SecretStr(apiKey))
 
 # Configure the browser to connect to your Chrome instance
 browser = Browser(
     config=BrowserConfig(chrome_instance_path="C:\Program Files\Google\Chrome\Application\chrome.exe",
                          disable_security=True,
-                         )
-)
+                         ))
 
 
 async def main():
