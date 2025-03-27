@@ -11,7 +11,7 @@ from utils import wait_for_page_load
 def save_cookies(driver):
     """Save cookies to a file"""
     cookies = driver.get_cookies()
-    with open('cookies.json', 'w') as file:
+    with open('userSecret/cookies.json', 'w') as file:
         json.dump(cookies, file)
     print('New cookies saved successfully')
 
@@ -19,12 +19,12 @@ def save_cookies(driver):
 def load_cookies(driver):
     """Load cookies from a file and validate them"""
     try:
-        if 'cookies.json' in os.listdir():
+        if 'userSecret/cookies.json' in os.listdir():
             # First navigate to the site before adding cookies
             driver.get("https://www.zhipin.com")
             wait_for_page_load(driver=driver)
 
-            with open('cookies.json', 'r') as file:
+            with open('userSecret/cookies.json', 'r') as file:
                 cookies = json.load(file)
 
             # Check if cookies exist and are not expired

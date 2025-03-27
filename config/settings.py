@@ -2,6 +2,7 @@
 # Application URLs
 LOGIN_URL = 'https://www.zhipin.com/web/user/?intent=0&ka=header-geek'
 JOB_RECOMMEND_URL = 'https://www.zhipin.com/web/geek/job-recommend'
+JOB_QUERY = '/web/geek/job?query=Java&city=100010000'
 BASE_URL = 'https://www.zhipin.com'
 
 # File paths
