@@ -1,4 +1,3 @@
-
 import time
 from config import BASE_URL, JOB_QUERY
 from utils import create_driver
@@ -44,7 +43,7 @@ def do_query_by_skills(driver, skill="Java"):
                         driver,
                         "//li[contains(@class, 'job-card-wrapper')]//div[contains(@class, 'job-title')]",
                         wait_type="visibility",
-                        timeout=10
+                        timeout=30
                     )
 
                     # Verify if job title is loaded
@@ -75,206 +74,144 @@ def do_query_by_skills(driver, skill="Java"):
 """
 
 
-def open_new_tab_n_extract_job(driver, job_cards):
+def extract_single_job_info(driver, job_card, index):
+    """Extract information from a single job card"""
     try:
-        # Get the current file's directory and set up paths
+        job_title_element = job_card.find_element(
+            By.XPATH, ".//div[contains(@class, 'job-title')]")
+        print("single job ==========>", job_title_element.text)
+        # Set up data directories
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(current_dir)
-
-        # Set up data directories
         DATA_DIR = os.path.join(project_root, 'data')
         IMAGE_DIR = os.path.join(DATA_DIR, 'images', 'hr_images')
-
-        # Create directories if they don't exist
         os.makedirs(DATA_DIR, exist_ok=True)
         os.makedirs(IMAGE_DIR, exist_ok=True)
 
-        # CSV file setup
-        csv_file_path = os.path.join(DATA_DIR, "job_details.csv")
+        # Scroll job card into view
+        driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
+            job_title_element
+        )
+        time.sleep(1)
 
-        # Create CSV file with headers if it doesn't exist
-        file_exists = os.path.exists(csv_file_path)
+        # Click on job title element
+        driver.execute_script("arguments[0].click();", job_title_element)
 
-        # Process each job
-        with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.DictWriter(file, fieldnames=[
-                'job_title', 'salary', 'city', 'experience', 'degree',
-                'skills', 'job_description', 'hr_name',
-                'hr_company_name_n_designation', 'hr_pic_path'
-            ])
+        # Wait for new tab and switch to it
+        WebDriverWait(driver, 30).until(lambda d: len(d.window_handles) > 1)
+        driver.switch_to.window(driver.window_handles[-1])
+        time.sleep(2)
 
-            # Write header only if file is new
-            if not file_exists:
-                writer.writeheader()
+        # Dictionary of elements to extract
+        elements_to_extract = {
+            'job_title': "//h1",
+            'salary': "//span[contains(@class, 'salary')]",
+            'city': "//a[contains(@class, 'text-city')]",
+            'experience': "//span[contains(@class, 'text-experiece')]",
+            'degree': "//span[contains(@class, 'text-degree')]",
+            'skills': "//ul[contains(@class, 'job-keyword-list')]",
+            'job_description': "//div[contains(@class, 'job-sec-text')]"
+        }
 
-            for index, job_item in enumerate(job_cards[:5]):
-                print("hello job item", job_item)
-                try:
-                    # Find and click job title with retry
-                    max_retries = 3
-                    for attempt in range(max_retries):
-                        try:
-                            # Wait for the page to settle after previous iteration
-                            time.sleep(2)
-                            # Scroll job into view
-                            driver.execute_script(
-                                "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
-                                job_item
-                            )
-                            time.sleep(1)
+        # Extract job data
+        job_data = {}
+        for key, xpath in elements_to_extract.items():
+            element = WebDriverWait(driver, 30).until(
+                EC.visibility_of_element_located((By.XPATH, xpath))
+            )
+            job_data[key] = element.text.strip()
+            if not job_data[key]:
+                raise Exception(f"Empty value for {key}")
 
-                            # Locate job title using WebDriverWait for better reliability
-                            job_title_element = WebDriverWait(driver, 10).until(
-                                EC.element_to_be_clickable(
-                                    (By.XPATH,
-                                     ".//div[contains(@class, 'job-title')]")
-                                )
-                            )
-                            job_title = job_title_element.text
-                            print(f"\nProcessing job {index + 1}: {job_title}")
+        print("hello jon new dic", job_data)
 
-                            # Try clicking with JavaScript if regular click fails
-                            try:
-                                job_title_element.click()
-                            except:
-                                driver.execute_script(
-                                    "arguments[0].click();", job_title_element)
+        # Extract HR information
+        job_data['hr_name'] = driver.execute_script("""
+            var element = document.querySelector('h2.name');
+            return element.childNodes[0].nodeValue.trim();
+        """)
 
-                             # Verify new tab opened
-                            if len(driver.window_handles) > 1:
-                                break
+        job_data['hr_designation'] = driver.execute_script("""
+            var element = document.querySelector('.boss-info-attr');
+            return element.textContent.split('·').pop().trim();
+        """)
 
-                        except Exception as e:
-                            print(
-                                f"Click attempt {attempt + 1} failed: {str(e)}")
-                            if attempt == max_retries - 1:
-                                raise
-                            time.sleep(2)
+        # Handle HR profile picture
+        hr_pic_url = driver.find_element(
+            By.XPATH, "//div[contains(@class, 'detail-figure')]/img"
+        ).get_attribute("src")
 
-                    # Wait for new tab
-                    WebDriverWait(driver, 10).until(
-                        lambda d: len(d.window_handles) > 1
-                    )
-                    driver.switch_to.window(driver.window_handles[-1])
-                    time.sleep(2)  # Allow page to load
+        # Save HR image
+        timestamp = int(time.time())
+        hr_pic_filename = f"hr_image_{index}_{timestamp}.jpg"
+        hr_pic_path = os.path.join(IMAGE_DIR, hr_pic_filename)
 
-                    print("New tab clicked waiting for visible the element")
-                    # Wait for job detail section to be visible and verify content
-                    detail_section = WebDriverWait(driver, 60).until(
-                        EC.visibility_of_element_located(
-                            (By.XPATH,
-                                "//div[contains(@class, 'job-detail-section')]")
-                        )
-                    )
+        try:
+            response = requests.get(hr_pic_url, stream=True, timeout=10)
+            if response.status_code == 200:
+                with open(hr_pic_path, "wb") as img_file:
+                    for chunk in response.iter_content(1024):
+                        img_file.write(chunk)
+                job_data['hr_pic_path'] = hr_pic_path
+            else:
+                job_data['hr_pic_path'] = "N/A"
+        except Exception as e:
+            print(f"Failed to save HR image: {str(e)}")
+            job_data['hr_pic_path'] = "N/A"
 
-                    # Verify if the section contains any text
-                    if not detail_section.text.strip():
-                        raise Exception("Job detail section is empty")
-                    print("Job detail section loaded with content")
+        print("final version of job data to return => ", job_data)
+        return job_data
 
-                    # Verify critical elements are present and visible
-                    critical_elements = {
-                        'job_title': "//h1",
-                        'salary': "//span[contains(@class, 'salary')]",
-                        'city': "//a[contains(@class, 'text-city')]",
-                        'experience': "//span[contains(@class, 'text-experiece')]",
-                        'degree': "//span[contains(@class, 'text-degree')]",
-                        'skills': "//ul[contains(@class, 'job-keyword-list')]",
-                        'job_description': "//div[contains(@class, 'job-sec-text')]"
-                    }
+    finally:
+        # Close the job detail tab and switch back to main window
+        driver.close()
+        driver.switch_to.window(driver.window_handles[0])
 
-                    # Check each critical element
-                    for element_name, xpath in critical_elements.items():
-                        element = WebDriverWait(driver, 60).until(
-                            EC.visibility_of_element_located((By.XPATH, xpath))
-                        )
-                        if not element.text.strip():
-                            raise Exception(f"{element_name} is empty")
-                        print(
-                            f"{element_name} loaded with content: {element.text}")
 
-                    # If all verifications pass, proceed with data extraction
-                    print("All elements verified, proceeding with data extraction...")
+def save_job_to_csv(job_data, csv_file_path):
+    """Save job data to CSV file"""
+    file_exists = os.path.exists(csv_file_path)
+    fieldnames = [
+        'job_title', 'salary', 'city', 'experience', 'degree',
+        'skills', 'job_description', 'hr_name',
+        'hr_designation', 'hr_pic_path'
+    ]
 
-                    # After successfully loading job details, collect all information
-                    job_data = {}
+    with open(csv_file_path, mode='a' if file_exists else 'w',
+              newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(job_data)
 
-                    # Extract job details
-                    job_data['job_title'] = driver.find_element(
-                        By.XPATH, "//h1").text
-                    job_data['salary'] = driver.find_element(
-                        By.XPATH, "//span[contains(@class, 'salary')]").text
-                    job_data['city'] = driver.find_element(
-                        By.XPATH, "//a[contains(@class, 'text-city')]").text
-                    job_data['experience'] = driver.find_element(
-                        By.XPATH, "//span[contains(@class, 'text-experiece')]").text
-                    job_data['degree'] = driver.find_element(
-                        By.XPATH, "//span[contains(@class, 'text-degree')]").text
-                    job_data['skills'] = driver.find_element(
-                        By.XPATH, "//ul[contains(@class, 'job-keyword-list')]").text
-                    job_data['job_description'] = driver.find_element(
-                        By.XPATH, "//div[contains(@class, 'job-sec-text')]").text
 
-                    # HR information section
-                    # HR Profile Picture URL
-                    hr_pic_url = driver.find_element(
-                        By.XPATH, "//div[contains(@class, 'detail-figure')]/img"
-                    ).get_attribute("src")
-                    print("hello hr pic", hr_pic_url)
-                    # Download the HR profile picture
-                    # Generate a unique filename
-                    hr_pic_filename = f"hr_image_{index + 1}.jpg"
+# Main function to process the first job card
+def process_first_job(driver, job_cards):
+    """Process only the first job card"""
+    try:
+        if not job_cards or len(job_cards) == 0:
+            raise Exception("No job cards found")
 
-                    job_data['hr_name'] = driver.execute_script(""" 
-                        var element = document.querySelector('h2.name');
-                        return element.childNodes[0].nodeValue.trim();
-                    """)
-                    # Extract HR designation using JavaScript
-                    job_data['hr_company_name_n_designation'] = driver.execute_script(""" 
-                        var element = document.querySelector('.boss-info-attr');
-                        var text = element.textContent;
-                        return text.split('·').pop().trim();
-                    """)
+        # Set up CSV file path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_dir)
+        csv_file_path = os.path.join(project_root, 'data', "job_details.csv")
 
-                    print(
-                        f"expect hr name => {job_data['hr_name']}, HR Designation=> {job_data['hr_company_name_n_designation']}")
+        # Extract and save job information for multiple cards
+        for index in range(5):
+            try:
+                print(f"Processing job {index + 1}")
+                job_data = extract_single_job_info(
+                    driver, job_cards[index], index=index)
+                # Save each job_data immediately after extraction
+                save_job_to_csv(job_data, csv_file_path)
+                print(f"Successfully saved job {index + 1}")
+            except Exception as e:
+                print(f"Error processing job {index + 1}: {str(e)}")
+                continue
 
-                    # Handle HR profile picture
-                    hr_pic_url = driver.find_element(
-                        By.XPATH, "//div[contains(@class, 'detail-figure')]/img"
-                    ).get_attribute("src")
-
-                    # Save HR profile picture
-                    hr_pic_filename = f"hr_image_{index + 1}.jpg"
-                    hr_pic_path = os.path.join(IMAGE_DIR, hr_pic_filename)
-
-                    try:
-                        response = requests.get(hr_pic_url, stream=True)
-                        if response.status_code == 200:
-                            with open(hr_pic_path, "wb") as img_file:
-                                for chunk in response.iter_content(1024):
-                                    img_file.write(chunk)
-                            job_data['hr_pic_path'] = hr_pic_path
-                        else:
-                            job_data['hr_pic_path'] = "N/A"
-                    except Exception as e:
-                        print(f"Failed to save HR image: {str(e)}")
-                        job_data['hr_pic_path'] = "N/A"
-
-                    # Write the job data to CSV
-                    writer.writerow(job_data)
-                    print(f"Saved job {index + 1} data to CSV")
-
-                    # Close current tab and switch back to main window
-                    driver.close()
-                    driver.switch_to.window(driver.window_handles[0])
-                    time.sleep(1)
-
-                except Exception as e:
-                    print(f"Error processing job {index + 1}: {str(e)}")
-                    continue
+        print("Successfully processed and saved all job information")
 
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
-    finally:
-        driver.quit()
+        print(f"Error processing first job: {str(e)}")

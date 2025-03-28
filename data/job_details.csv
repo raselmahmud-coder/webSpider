@@ -1,3 +1,17 @@
+job_title,salary,city,experience,degree,skills,job_description,hr_name,hr_designation,hr_pic_path
+java web 后端,16-18K·13薪,武汉,3-5年,本科,alert,"岗位职责：
+1.负责新项目需求开发，并能够按要求、高质量地完成开发任务;
+2.按照原型设计的功能，实现模块的代码编写和维护;
+3.按公司规范进行编码，并对开发的代码进行单元测试;
+4.迭代现有软件产品，能快速定位并修复现有软件缺陷。 
+任职要求： 
+1.计算机相关专业本科及以上学历，3年以上开发经验，java语言基础知识扎实，熟练使用SpringMVC、Mybatis主流开发框架;
+2.熟悉主流开源应用框架及相关开发技术，如：Zookeeper,Swagger、Redis、Kafka等; 
+3.对JavaScript、Ajax、Html有一定了解和使用; 
+4.熟练使用git/svn,maven/gradle等工具;
+5.熟悉 MySQL/Oracle/DB2，具备一定的数据库性能调优能力;
+6.使用spring boot/spring cloud开发过项目，具备改造框架源码和引用源码能力;
+7.沟通能力强，能独立完成分析需求和设计，并具备一定的耐压能力和学习能力。",张女士,hr,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743137050.jpg
 Java！Java！Java（双休！）,15-30K·14薪,南京,经验不限,本科,"Java
 MySQL
 Spring","岗位职责：
@@ -9,52 +23,118 @@ Spring","岗位职责：
 2、热爱编程，熟悉掌握但不限于JAVA/C++/C/Python/JS/HTML/GO等编程语言中的一种或数种，有良好的编程习惯；
 3、具备独立工作能力和解决问题的能力、善于沟通，乐于合作，热衷新技术，善于总结分享，喜欢动手实践；
 4、对数据结构、算法有一定了解；
-5、优选条件：(1)熟悉TCP/IP协议及互联网常见应用和协议原理；(2)有IT软件、互联网软件、IOS/安卓等相关产品开发经验，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织；(3)熟悉JS/AS/A-JAX/HTML5/CSS等前端开发技术。",柳先生,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1.jpg
-Java！Java！Java（双休！）,15-30K·14薪,南京,经验不限,本科,"Java
+5、优选条件：(1)熟悉TCP/IP协议及互联网常见应用和协议原理；(2)有IT软件、互联网软件、IOS/安卓等相关产品开发经验，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织；(3)熟悉JS/AS/A-JAX/HTML5/CSS等前端开发技术。",柳先生,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743137572.jpg
+Java Lead（英文口语流利）,35-45K·13薪,上海,10年以上,本科,"Java
+团队管理经验
+Elasticsearch
 MySQL
-Spring","岗位职责：
-1、完成从客户需求到软件产品定义、架构设计、开发实现、再到上线运营维护等产品生命周期中的各个环节；
-2、创造性解决产品在实现过程中技术难题，应用前沿技术提升产品的核心竞争力，如分布式统、性能调优、可靠性、数据库等；
-3、有机会参与业界前沿技术研究和规划，参与开源社区运作，与全球专家一起工作交流，构建华为业界影响力。
-岗位要求：
-1、计算机、软件、通信等相关专业本科及以上学历；
-2、热爱编程，熟悉掌握但不限于JAVA/C++/C/Python/JS/HTML/GO等编程语言中的一种或数种，有良好的编程习惯；
-3、具备独立工作能力和解决问题的能力、善于沟通，乐于合作，热衷新技术，善于总结分享，喜欢动手实践；
-4、对数据结构、算法有一定了解；
-5、优选条件：(1)熟悉TCP/IP协议及互联网常见应用和协议原理；(2)有IT软件、互联网软件、IOS/安卓等相关产品开发经验，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织；(3)熟悉JS/AS/A-JAX/HTML5/CSS等前端开发技术。",柳先生,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2.jpg
-Java！Java！Java（双休！）,15-30K·14薪,南京,经验不限,本科,"Java
+Redis
+英文口语流利","QUALIFICATIONS:
+• 10+ years of Software Engineering experience, with at least 3 years in a leadership role. 
+• BS Engineering/Computer Science or equivalent experience required
+•8+ years of experience in software development,
+•Bachelor's degree in Engineering/Computer Science or equivalent experience. 
+•Strong expertise in Java, Microservices, and cloud platforms (e.g., AWS). 
+•Experience in large-scale distributed systems and high-performance applications. 
+•Hands-on experience with DevOps, CI/CD, Kubernetes, and modern cloud technologies. 
+•Excellent problem-solving skills and the ability to make data-driven decisions. 
+•Strong communication and leadership abilities, capable of managing and growing a team. 
+•Nice to have experience with NoSQL, such as Solr, ES, Redis, Cassandra. 
+•Familiarity with containerization, infrastructure as code (Terraform), and observability tools. 
+•Previous experience working in an international and multicultural environment. 
+TECHNICAL SKILLS:
+• Advanced knowledge of software development methodologies (e.g., Agile, Waterfall).
+• Strong experience with various resource models such as Managed Services and/or Staff Augmentation.
+• Strong knowledge in industry best practices in external resource development.
+• Ability to partner and lead internal and external technology resources in solving complex business needs.
+• Test-driven development.
+• Strong research skills.
+• Strong proficiency with data manipulation language including optimization techniques.
+• Strong understanding of normalized/dimensional data modeling principles.
+• Ability to design and work with complex data models.
+• Strong knowledge of multiple data storage subsystems.
+• Expertise in development languages including but not limited to: Java/J2EE, JavaScript, JSP, C/C++, HTML, XML, SQL, Windows, UNIX, and .Net.
+• Hands-on experience with DevOps, CI/CD, Kubernetes, and modern cloud technologies. 
+• Excellent problem-solving skills and the ability to make data-driven decisions. 
+• Strong communication and leadership abilities, capable of managing and growing a team. 
+• Nice to have experience with NoSQL, such as Solr, ES, Redis, Cassandra. 
+• Ability to partner and lead internal and external technology resources in solving complex business needs.
+• Knowledge in using and developing applicable tool sets.
+• Ability to write and review portions of detailed specifications for the development of complex system components.
+• Strong skills in setting, communicating, implementing, and achieving business objectives and goals through the direct management of others.
+• Strong organization/project planning, time management, and change management skills across multiple functional groups and departments, and strong delegation skills involving prioritizing and reprioritizing projects and managing projects of various size and complexity.
+• Strong problem-solving experience involving leading teams in identifying, researching, and coordinating the resources necessary to effectively troubleshoot/diagnose complex project issues; prior success extracting/translating findings into alternatives/solutions; and identifying risks/impacts and schedule adjustments to facilitate management decision-making.
+• Strong communication (verbal and written) and customer service skills. Strong interpersonal, communication, and presentation skills applicable to a wide audience including senior and executive management, customers, etc., including diction/terminology and presenting information in a concise and effective manner to clients, management, and various departments using assorted communication mediums.
+ACCOUNTABILITIES:
+• Serve as the initial point of escalation for software development issues within specific area of responsibility.
+• Interface with other technical personnel or team members to finalize requirements.
+• Write and review portions of detailed specifications for the development of system components of moderate complexity.
+• Complete complex bug fixes.
+• Work closely with other development team members to understand moderately complex product requirements and translate them into software designs.
+• Successfully implement development processes, coding best practices, and code reviews.
+• Operate in various development environments (Agile, Waterfall, etc.) while collaborating with key stakeholders.
+• Resolve complex technical issues as necessary.
+• Mentor and/or train entry-level software engineers as directed by department management, ensuring they are knowledgeable in critical aspects of their roles.
+• Keep abreast of new technology developments.
+• Design and work with complex data models.
+• Carry out management responsibilities in accordance with the organization’s policies, procedures, and applicable laws. Responsibilities include interviewing, hiring, and training employees; planning, assigning, and directing work; appraising performance; rewarding and disciplining employees; and addressing complaints and resolving problems.
+• Ensure all staff is provided with training and resources needed to perform their jobs to the most outstanding degree possible. Ensure all staff is provided with frequent feedback and coaching in order to meet and exceed individual and team performance goals consistently.
+• Manage and encourage new ideas from staff to foster improvements through innovations.
+• Empower the staff to be accountable and responsible for their own actions and decisions.
+• All other duties as assigned.",伍女士,recruiter,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743137575.jpg
+Java Web 高级开发工程师,7-12K,哈尔滨,3-5年,大专,"微服务架构
+分布式技术
+服务器配置
+后端开发
+SpringBoot
+SpringCloud
+Redis
+MySQL","1. 统招本科及以上，3年以上Java编程经验，负责公司自营产品研发。
+2. 责任心强、思维敏捷、良好编码习惯、良好的逻辑思维能力/沟通能力、分析与定位问题的能力，能适应公司相关安排工作。
+3. 精通Spring Boot，Spring Cloud，Spring MVC，MyBatis等相关技术
+4. 精通SQL 语句以及No SQL数据库（如Redis）,精通JS,精通HTML5相关技术
+5. 精通至少一种网络协议并有对应开发经验（HTTP、TCP、UDP等）
+6. 精通主流数据库MySQL、SQL Server、Oracle其中一种
+7. 有服务端实际开发经验，精通性能调优，会找到项目中性能痛点，解决高并发等问题。
+8. 精通使用第三方开源库，并可以进行项目需求，进行修改适用。
+9. 精通面向对象的程序设计思想和设计模式，熟练理解MVC以及MVVM
+10. 熟练书写需求文档、软件设计文档、开发文档、软件说明书等常用软件行业文档。
+11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743137578.jpg
+Java & Golang 开发工程师,15-25K,北京,3-5年,本科,"Java
+计算机/软件工程相关经验","1. 要求对两者都能入手，有一定经验。
+2. 责任心好，负责任。
+3. 兼职，按天算，至少两个月，待遇从优。
+4. 数字矿山服务端开发。",罗先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743137582.jpg
+Java p6/p7,30-50K·16薪,上海,3-5年,本科,"JVM
+Java
+分布式经验
+Kafka
+分布式技术
+架构师
+Redis
+Dubbo
+SpringBoot
+Spring
+SSM
+HBase
+微服务经验
 MySQL
-Spring","岗位职责：
-1、完成从客户需求到软件产品定义、架构设计、开发实现、再到上线运营维护等产品生命周期中的各个环节；
-2、创造性解决产品在实现过程中技术难题，应用前沿技术提升产品的核心竞争力，如分布式统、性能调优、可靠性、数据库等；
-3、有机会参与业界前沿技术研究和规划，参与开源社区运作，与全球专家一起工作交流，构建华为业界影响力。
-岗位要求：
-1、计算机、软件、通信等相关专业本科及以上学历；
-2、热爱编程，熟悉掌握但不限于JAVA/C++/C/Python/JS/HTML/GO等编程语言中的一种或数种，有良好的编程习惯；
-3、具备独立工作能力和解决问题的能力、善于沟通，乐于合作，热衷新技术，善于总结分享，喜欢动手实践；
-4、对数据结构、算法有一定了解；
-5、优选条件：(1)熟悉TCP/IP协议及互联网常见应用和协议原理；(2)有IT软件、互联网软件、IOS/安卓等相关产品开发经验，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织；(3)熟悉JS/AS/A-JAX/HTML5/CSS等前端开发技术。",柳先生,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3.jpg
-Java！Java！Java（双休！）,15-30K·14薪,南京,经验不限,本科,"Java
-MySQL
-Spring","岗位职责：
-1、完成从客户需求到软件产品定义、架构设计、开发实现、再到上线运营维护等产品生命周期中的各个环节；
-2、创造性解决产品在实现过程中技术难题，应用前沿技术提升产品的核心竞争力，如分布式统、性能调优、可靠性、数据库等；
-3、有机会参与业界前沿技术研究和规划，参与开源社区运作，与全球专家一起工作交流，构建华为业界影响力。
-岗位要求：
-1、计算机、软件、通信等相关专业本科及以上学历；
-2、热爱编程，熟悉掌握但不限于JAVA/C++/C/Python/JS/HTML/GO等编程语言中的一种或数种，有良好的编程习惯；
-3、具备独立工作能力和解决问题的能力、善于沟通，乐于合作，热衷新技术，善于总结分享，喜欢动手实践；
-4、对数据结构、算法有一定了解；
-5、优选条件：(1)熟悉TCP/IP协议及互联网常见应用和协议原理；(2)有IT软件、互联网软件、IOS/安卓等相关产品开发经验，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织；(3)熟悉JS/AS/A-JAX/HTML5/CSS等前端开发技术。",柳先生,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4.jpg
-Java！Java！Java（双休！）,15-30K·14薪,南京,经验不限,本科,"Java
-MySQL
-Spring","岗位职责：
-1、完成从客户需求到软件产品定义、架构设计、开发实现、再到上线运营维护等产品生命周期中的各个环节；
-2、创造性解决产品在实现过程中技术难题，应用前沿技术提升产品的核心竞争力，如分布式统、性能调优、可靠性、数据库等；
-3、有机会参与业界前沿技术研究和规划，参与开源社区运作，与全球专家一起工作交流，构建华为业界影响力。
-岗位要求：
-1、计算机、软件、通信等相关专业本科及以上学历；
-2、热爱编程，熟悉掌握但不限于JAVA/C++/C/Python/JS/HTML/GO等编程语言中的一种或数种，有良好的编程习惯；
-3、具备独立工作能力和解决问题的能力、善于沟通，乐于合作，热衷新技术，善于总结分享，喜欢动手实践；
-4、对数据结构、算法有一定了解；
-5、优选条件：(1)熟悉TCP/IP协议及互联网常见应用和协议原理；(2)有IT软件、互联网软件、IOS/安卓等相关产品开发经验，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织；(3)熟悉JS/AS/A-JAX/HTML5/CSS等前端开发技术。",柳先生,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_5.jpg
+微服务架构
+MyBatis
+架构设计经验
+Python","工作职责：
+• 1. 负责得物app电商交易平台业务系统核心开发，并主导落地实施；
+• 2. 深入发掘和分析业务需求，撰写技术方案和系统设计；
+• 3. 参与技术方案和系统设计评审；把握复杂系统的设计，确保系统的架构质量；
+• 4. 系统核心部分代码编写；解决疑难问题；
+• 5. 对负责的业务有主人翁意识，对现存或未来系统进行宏观的思考，形成统一的框架、平台或组件；
+• 6. 为团队引入创新的技术、创新的解决方案，用创新的思路解决问题。
+任职资格：
+• 1. Java基础扎实，理解io、多线程、集合等基础框架，对JVM原理有一定的了解；熟悉面向对象设计开发;
+• 2. 3年以上使用JAVA开发的经验，对于你用过的主要的开源框架，能了解到原理和机制的层面；
+• 3. 熟悉分布式系统的设计和应用，熟悉分布式、缓存、消息、搜索、推荐等机制；能对分布式常用技术进行合理应用，解决问题；
+• 4. 掌握Linux操作系统和大型数据库；有较强的分析设计能力和方案整合能力；
+• 5. 良好的沟通技能，团队合作能力，勤奋好学；
+• 6. 对互联网或J2EE应用开发的最新潮流有关注，喜欢去看及尝试最新的技术，追求编写优雅的代码，从技术趋势和思路上能影响技术团队；
+• 7. 有面向电商交易，商品，营销，会员，订单，履约等相关平台研发经验者有先。
+• 8. 同时具备一定数据计算能力，算法经验者优先",陈先生,java技术专家,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743137585.jpg
