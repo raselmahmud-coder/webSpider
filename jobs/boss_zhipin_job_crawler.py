@@ -1,5 +1,6 @@
 import time
 from config import BASE_URL, JOB_QUERY
+from jobs.boss_company_details_crawler import extract_company_info
 from utils import create_driver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -124,7 +125,7 @@ def extract_single_job_info(driver, job_card, index):
             if not job_data[key]:
                 raise Exception(f"Empty value for {key}")
 
-        print("hello jon new dic", job_data)
+        print("hello job new dic", job_data)
 
         # Extract HR information
         job_data['hr_name'] = driver.execute_script("""
@@ -160,7 +161,8 @@ def extract_single_job_info(driver, job_card, index):
             print(f"Failed to save HR image: {str(e)}")
             job_data['hr_pic_path'] = "N/A"
 
-        print("final version of job data to return => ", job_data)
+        print("final version ==========*******=========> ", job_data)
+        extract_company_info(driver, index)
         return job_data
 
     finally:

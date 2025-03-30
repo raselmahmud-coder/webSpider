@@ -5,10 +5,12 @@ from .settings import (
     JOB_QUERY,
     COOKIE_FILE,
     LOGIN_TIMEOUT,
+    COMPANY_DETAILS_URI,
     PAGE_LOAD_TIMEOUT
 )
 
 __all__ = [
+    'COMPANY_DETAILS_URI',
     'LOGIN_URL',
     'JOB_RECOMMEND_URL',
     'BASE_URL',
