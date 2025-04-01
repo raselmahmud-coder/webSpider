@@ -7,58 +7,134 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+import json
+import os
+from datetime import datetime
 
-def main():
-    # Start with non-headless mode for login
-    driver = create_driver(headless=False)
-    # Maximize the browser window
-    driver.maximize_window()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
+def import_browser_cookies(driver, cookie_file=os.path.join(BASE_DIR, 'userSecret', 'browser_cookies.json')):
+    """Import cookies from browser export with validation"""
     try:
-        # A logged in user try to load old session into the browser
-        if load_cookies(driver):
-            print('Previous session loaded successfully')
-            # Call the apply_to_jobs function
-            apply_to_jobs(driver)
+        if not os.path.exists(cookie_file):
+            print(f"Cookie file {cookie_file} not found")
+            return False
 
-        else:
-            print('\nPlease login manually using WeChat or Phone OTP.')
-            print('You have 60 seconds to complete the login process.')
-            print('Waiting for login...')
+        with open(cookie_file, 'r', encoding='utf-8') as file:
+            cookies = json.load(file)
 
+        # Validate cookies format
+        if not validate_cookies_file(cookies):
+            print("Invalid cookie format")
+            return False
+
+        # Load domain before adding cookies
+        driver.get('https://www.zhipin.com')
+        wait_for_page_load(driver)
+
+        # Clear existing cookies
+        driver.delete_all_cookies()
+
+        success_count = 0
+        for cookie in cookies:
             try:
-                # Either new user or cookie is expired need to navigate for login
-                login_url = 'https://www.zhipin.com/web/user/?intent=0&ka=header-geek'
-                driver.get(login_url)
-                # Wait for successful login
-                WebDriverWait(driver, 60).until(
-                    EC.presence_of_element_located(
-                        (By.CSS_SELECTOR, ".online-service"))
-                )
-                print("Login successful!")
-                save_cookies(driver)
-            except Exception:
-                print("Login timeout or failed!")
-                return
+                # Remove any problematic fields
+                cookie_dict = {k: v for k, v in cookie.items() if k in
+                               ['name', 'value', 'domain', 'path', 'secure', 'httpOnly', 'expiry']}
+                driver.add_cookie(cookie_dict)
+                success_count += 1
+            except Exception as e:
+                print(f"Error adding cookie {cookie.get('name')}: {str(e)}")
 
-        print(f"Current URL: {driver.current_url}")
-
-        # Get page content
-        page_text = driver.find_element("tag name", "body").text
-        print("\nPage Content:")
-        print(page_text[:10])  # Print first 1000 characters
-
-        # Get all links
-        links = driver.find_elements("tag name", "a")
-        print("\nLinks found:", len(links))
-        for link in links[:5]:  # Print first 5 links
-            print(
-                f"Link text: {link.text} -> URL: {link.get_attribute('href')}")
+        print(f"Successfully added {success_count}/{len(cookies)} cookies")
+        driver.refresh()
+        return success_count > 0
 
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        print(f"Error importing cookies: {str(e)}")
+        return False
+
+
+def validate_cookie_format(cookie):
+    """Validate individual cookie format"""
+    required_fields = ['name', 'value', 'domain']
+    return all(field in cookie for field in required_fields)
+
+
+def validate_cookies_file(cookies):
+    """Validate the entire cookies file"""
+    if not isinstance(cookies, list):
+        return False
+    return all(validate_cookie_format(cookie) for cookie in cookies)
+
+
+def verify_login(driver):
+    """Verify if the login is successful with better checks"""
+    try:
+        # First check if we're redirected to login page
+        driver.get('https://www.zhipin.com/web/chat/index')
+        wait = WebDriverWait(driver, 10)
+
+        # Check for login indicators
+        login_indicators = [
+            (By.CSS_SELECTOR, ".chat-container"),
+            # User navigation usually present when logged in
+            (By.CSS_SELECTOR, ".user-nav"),
+            (By.CSS_SELECTOR, "[class*='header-user']")  # User header element
+        ]
+
+        for indicator in login_indicators:
+            try:
+                element = wait.until(EC.presence_of_element_located(indicator))
+                if element.is_displayed():
+                    print(f"Login verified via indicator: {indicator[1]}")
+                    return True
+            except:
+                continue
+
+        # Check if redirected to login page
+        if 'login' in driver.current_url.lower():
+            print("Redirected to login page - not logged in")
+            return False
+
+        return False
+
+    except Exception as e:
+        print(f"Login verification failed: {str(e)}")
+        return False
+
+
+def main():
+    driver = None
+    try:
+        driver = create_driver(is_headless=False)
+        driver.maximize_window()
+
+        print("Importing cookies...")
+        if import_browser_cookies(driver):
+            print("Cookies imported, verifying login...")
+
+            if verify_login(driver):
+                print("✓ Successfully logged in")
+                # Continue with your search functionality
+                return True
+            else:
+                print("× Login failed - please check your cookies")
+                print("Redirecting to manual login page...")
+                driver.get(
+                    'https://www.zhipin.com/web/user/?intent=1&ka=header-boss')
+                return False
+        else:
+            print("× Cookie import failed")
+            return False
+
+    except Exception as e:
+        print(f"Critical error: {str(e)}")
+        return False
     finally:
-        driver.quit()
+        if driver:
+            driver.quit()
 
 
 if __name__ == "__main__":

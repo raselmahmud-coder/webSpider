@@ -12,6 +12,7 @@ def create_driver(is_headless=False):
     options = Options()
     if is_headless:
         options.add_argument("--is_headless=new")
+
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
