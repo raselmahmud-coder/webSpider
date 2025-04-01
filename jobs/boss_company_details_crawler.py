@@ -2,6 +2,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import csv
+import os
+from datetime import datetime
 
 from config import BASE_URL
 
@@ -106,6 +109,51 @@ def extract_company_addresses(driver):
         return addresses
 
 
+def save_company_to_csv(company_data, company_details, company_addresses, csv_file_path='company_data.csv'):
+    """Save company information to CSV file"""
+
+    # Flatten company addresses into a single string
+    formatted_addresses = '; '.join([
+        f"Address: {addr['address']}, Coordinates: {addr['coordinates']}, ID: {addr['address_id']}"
+        for addr in company_addresses
+    ])
+
+    # Combine all data into a single dictionary
+    csv_data = {
+        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'company_name': company_data.get('company_name', ''),
+        'company_description': company_data.get('company_description', ''),
+        # Company details
+        'legal_representative': company_details.get('legal_representative', ''),
+        'establishment_date': company_details.get('establishment_date', ''),
+        'company_type': company_details.get('company_type', ''),
+        'operation_status': company_details.get('operation_status', ''),
+        'registered_capital': company_details.get('registered_capital', ''),
+        'registered_address': company_details.get('registered_address', ''),
+        'business_term': company_details.get('business_term', ''),
+        'region': company_details.get('region', ''),
+        'social_credit_code': company_details.get('social_credit_code', ''),
+        'approval_date': company_details.get('approval_date', ''),
+        'former_names': company_details.get('former_names', ''),
+        'registration_authority': company_details.get('registration_authority', ''),
+        'industry': company_details.get('industry', ''),
+        'business_scope': company_details.get('business_scope', ''),
+        'company_addresses': formatted_addresses
+    }
+    # Set up CSV file path
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(current_dir)
+    csv_file_path = os.path.join(project_root, 'data', "company_data.csv")
+    file_exists = os.path.exists(csv_file_path)
+
+    with open(csv_file_path, mode='a' if file_exists else 'w',
+              newline='', encoding='utf-8-sig') as file:
+        writer = csv.DictWriter(file, fieldnames=csv_data.keys())
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(csv_data)
+
+
 def extract_company_info(driver, index):
     """Extract company information from the company details page."""
     try:
@@ -176,6 +224,12 @@ def extract_company_info(driver, index):
         except Exception as e:
             print(f"Error extracting company description: {str(e)}")
 
+        # Collect company basic info
+        company_data = {
+            'company_name': company_name,
+            'company_description': company_description
+        }
+
         # Extract detailed company information
         company_details = extract_company_details(driver)
 
@@ -194,6 +248,11 @@ def extract_company_info(driver, index):
             print(f"  Location: {addr['address']}")
             print(f"  Coordinates: {addr['coordinates']}")
             print(f"  Address ID: {addr['address_id']}")
+
+        # Save all collected data to CSV
+        save_company_to_csv(company_data, company_details, company_addresses)
+
+        print("Company data has been saved to CSV successfully!")
 
     except Exception as e:
         print(f"Error extracting company information: {str(e)}")

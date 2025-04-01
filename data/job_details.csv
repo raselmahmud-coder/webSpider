@@ -1,19 +1,391 @@
 job_title,salary,city,experience,degree,skills,job_description,hr_name,hr_designation,hr_pic_path
-JAVA RCP 工程师,9-14K,长沙,1-3年,本科,"Java
-JAVA RCP
-Eclipse
+Java Developer（证券/英文办公）,20-40K,深圳,3-5年,本科,"外企
+Java
+C++
+交易所
+证券
+SpringCloud
 MySQL
+React","Principal Responsibilities: 
+Perform system function design and deliver related documents
+Perform requirement development with Java 
+Key Responsibility Areas:
+Work with HK/SZ IT team to implement Client Connect/Synapse system
+Perform new requirement/enhancement development.
+Provide production system support.
+Undertake any other assignments and projects as assigned by superior
+To debug and provide solutions on system issues",张先生,招聘专员,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743472443.jpg
+Java & Python 工程师,10-12K,北京,3-5年,本科,"Java
+Nginx
+大数据经验
+不接受居家办公
+Docker
+MySQL
+Kafka
+Redis
+Spring
+Python","我们对任职要求、工作内容、工作方式进行了详细的描述，为了面试更高效，请认真阅读和判断，如果确实都匹配欢迎您投递简历。
+基本要求：
+1. 统招本科以上学历。
+2. 3年以上工作经验，熟练掌握 Java语言 和 Python语言。
+3. 算法方面有很好的基础，有严谨、清晰的逻辑思维。
+其他要求：
+目前的项目有的需要Java 也有的需要Python，所以你要能熟练使用多门语言。
+在工作中还会遇到新技术新问题，可能是你之前没接触或没听过的，你要有勇气接受挑战，通过自己的学习完成任务。当然整个过程中同事会给你足够的支持。
+你要善于利用AI，用AI来写代码，用AI来写文档，等等，并发现更多AI提升效率的方法。
+当项目进度遇阻或出现延期风险时，你要有勇气站出来，帮助别人，保证项目整体顺利进行的勇气和公心。
+你要有一个开放的心态，辩证的思维看待和分析问题，提出的结论明确，并且有依据有逻辑。
+你要有一个快乐的心态，可以畅所欲言，绝对坦诚的沟通。
+你对待工作要有激情，要敢于挑战更高的目标和困难。
+为了工作更流畅，团队配合更默契，我们也制定了如下的工作指导手册，他就像工作中的交通指示灯。
+1.任务前：当自己安排任务或自己承接任务时， 都要有明确的完成时间。 需求或工作事项都要明确，如果不明确自己就要问清楚，防止返工和延期。例如：详细的技术方案：流程图-数据结构-接口格式-伪代码的逻辑
+2.任务中：当自己的任务中遇到障碍时，不要等，我要把能做的先做好，将工作事项里能做的全都拆出来提前完成，保证整体不延期。自己要努力克服困难，尝试多种方法解决问题，追问自己真的没办法了吗？
+3.任务后：当自己的任务完成时，要及时主动找相关方确认，确保工作成果达标。
+4.任务阻：当自己发现项目遇到障碍时，要以项目高效交付为目的，尽力提出合理、可行的方案。
+例如：结论是什么 -> 理由依据和数据支撑 -> 行动步骤 
+5.会议内：当每天工作结束时，填写《每日更新》，写当天任务完成的具体内容，预先写明天的任务计划。
+6.会议外：当与客户开会时，不迟到，带本子记录好相关事项。需要的会议资料带齐全，内容准确、清晰。
+如果你看到这里了，并认为以上都可以做到，非常欢迎与我们联系。
+如果我们这里不适合你，也祝你能找到满意的工作。",杜女士,人事部HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743472453.jpg
+JAVA Developer（英文流利）,15-20K·13薪,天津,3-5年,本科,"Java
+不接受居家办公
+分布式经验
+Docker
+MySQL
+云计算经验
+架构设计经验","We are seeking a talented and motivated senior JAVA software engineer to join a high performing Scrum team to roll out new digital solution for SCB customers. The candidate must be a skilled professional who has E2E software development experience with a desire to work on an Agile, dynamic and flat organisational structure.
+Key Roles and Responsibilities：
+• Good communication skills in English (both oral & writing)
+• Develop function modules
+• Develop core foundation modules
+• Participate and Focus on design, dev, testing, implementation process.
+• Agile development of banking services
+• Collaborate with cross-functional teams in agile development
+• Conduct continuous development and / or integration
+Qualifications and Skills：
+• 6+ years of development experience
+• Strong knowledge of multiple programming languages (Java, Spring, Spring boot, PostgreSQL/Oracle, Hibernate as well as interpreted scripting language experience)
+• Restful API design and development
+• Microservices implementation experience with focus on domain drive design.
+• Familiar with Docker, Openshift container platform
+• Familiar and work experience with Linux/Shell script.
+• Strong analytical & problem solving and creative skills
+• Understand business, functional and technical requirement and specification and identify gap and provide feedback.
+• Good communication and written skills for daily work across team.
+• Prior experience working in an agile environment, continuous integration
+• Experience in delivering software in a regulated environment, ideally financial services based to high quality
+• Have a high enthusiasm for programming and new technology learning, have a strong learning ability 
+• Bachelor’s degree",李女士,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743472467.jpg
+Java Web 高级开发工程师,7-12K,哈尔滨,3-5年,大专,"微服务架构
+分布式技术
+服务器配置
+后端开发
+SpringBoot
+SpringCloud
+Redis
+MySQL","1. 统招本科及以上，3年以上Java编程经验，负责公司自营产品研发。
+2. 责任心强、思维敏捷、良好编码习惯、良好的逻辑思维能力/沟通能力、分析与定位问题的能力，能适应公司相关安排工作。
+3. 精通Spring Boot，Spring Cloud，Spring MVC，MyBatis等相关技术
+4. 精通SQL 语句以及No SQL数据库（如Redis）,精通JS,精通HTML5相关技术
+5. 精通至少一种网络协议并有对应开发经验（HTTP、TCP、UDP等）
+6. 精通主流数据库MySQL、SQL Server、Oracle其中一种
+7. 有服务端实际开发经验，精通性能调优，会找到项目中性能痛点，解决高并发等问题。
+8. 精通使用第三方开源库，并可以进行项目需求，进行修改适用。
+9. 精通面向对象的程序设计思想和设计模式，熟练理解MVC以及MVVM
+10. 熟练书写需求文档、软件设计文档、开发文档、软件说明书等常用软件行业文档。
+11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743472476.jpg
+Java & Golang 开发工程师,15-25K,北京,3-5年,本科,"Java
+计算机/软件工程相关经验","1. 要求对两者都能入手，有一定经验。
+2. 责任心好，负责任。
+3. 兼职，按天算，至少两个月，待遇从优。
+4. 数字矿山服务端开发。",罗先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743472484.jpg
+Java Developer（证券/英文办公）,20-40K,深圳,3-5年,本科,"外企
+Java
+C++
+交易所
+证券
+SpringCloud
+MySQL
+React","Principal Responsibilities: 
+Perform system function design and deliver related documents
+Perform requirement development with Java 
+Key Responsibility Areas:
+Work with HK/SZ IT team to implement Client Connect/Synapse system
+Perform new requirement/enhancement development.
+Provide production system support.
+Undertake any other assignments and projects as assigned by superior
+To debug and provide solutions on system issues",张先生,招聘专员,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743472953.jpg
+Java & Python 工程师,10-12K,北京,3-5年,本科,"Java
+Nginx
+大数据经验
+不接受居家办公
+Docker
+MySQL
+Kafka
+Redis
+Spring
+Python","我们对任职要求、工作内容、工作方式进行了详细的描述，为了面试更高效，请认真阅读和判断，如果确实都匹配欢迎您投递简历。
+基本要求：
+1. 统招本科以上学历。
+2. 3年以上工作经验，熟练掌握 Java语言 和 Python语言。
+3. 算法方面有很好的基础，有严谨、清晰的逻辑思维。
+其他要求：
+目前的项目有的需要Java 也有的需要Python，所以你要能熟练使用多门语言。
+在工作中还会遇到新技术新问题，可能是你之前没接触或没听过的，你要有勇气接受挑战，通过自己的学习完成任务。当然整个过程中同事会给你足够的支持。
+你要善于利用AI，用AI来写代码，用AI来写文档，等等，并发现更多AI提升效率的方法。
+当项目进度遇阻或出现延期风险时，你要有勇气站出来，帮助别人，保证项目整体顺利进行的勇气和公心。
+你要有一个开放的心态，辩证的思维看待和分析问题，提出的结论明确，并且有依据有逻辑。
+你要有一个快乐的心态，可以畅所欲言，绝对坦诚的沟通。
+你对待工作要有激情，要敢于挑战更高的目标和困难。
+为了工作更流畅，团队配合更默契，我们也制定了如下的工作指导手册，他就像工作中的交通指示灯。
+1.任务前：当自己安排任务或自己承接任务时， 都要有明确的完成时间。 需求或工作事项都要明确，如果不明确自己就要问清楚，防止返工和延期。例如：详细的技术方案：流程图-数据结构-接口格式-伪代码的逻辑
+2.任务中：当自己的任务中遇到障碍时，不要等，我要把能做的先做好，将工作事项里能做的全都拆出来提前完成，保证整体不延期。自己要努力克服困难，尝试多种方法解决问题，追问自己真的没办法了吗？
+3.任务后：当自己的任务完成时，要及时主动找相关方确认，确保工作成果达标。
+4.任务阻：当自己发现项目遇到障碍时，要以项目高效交付为目的，尽力提出合理、可行的方案。
+例如：结论是什么 -> 理由依据和数据支撑 -> 行动步骤 
+5.会议内：当每天工作结束时，填写《每日更新》，写当天任务完成的具体内容，预先写明天的任务计划。
+6.会议外：当与客户开会时，不迟到，带本子记录好相关事项。需要的会议资料带齐全，内容准确、清晰。
+如果你看到这里了，并认为以上都可以做到，非常欢迎与我们联系。
+如果我们这里不适合你，也祝你能找到满意的工作。",杜女士,人事部HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743472964.jpg
+Java Web 高级开发工程师,7-12K,哈尔滨,3-5年,大专,"微服务架构
+分布式技术
+服务器配置
+后端开发
+SpringBoot
+SpringCloud
+Redis
+MySQL","1. 统招本科及以上，3年以上Java编程经验，负责公司自营产品研发。
+2. 责任心强、思维敏捷、良好编码习惯、良好的逻辑思维能力/沟通能力、分析与定位问题的能力，能适应公司相关安排工作。
+3. 精通Spring Boot，Spring Cloud，Spring MVC，MyBatis等相关技术
+4. 精通SQL 语句以及No SQL数据库（如Redis）,精通JS,精通HTML5相关技术
+5. 精通至少一种网络协议并有对应开发经验（HTTP、TCP、UDP等）
+6. 精通主流数据库MySQL、SQL Server、Oracle其中一种
+7. 有服务端实际开发经验，精通性能调优，会找到项目中性能痛点，解决高并发等问题。
+8. 精通使用第三方开源库，并可以进行项目需求，进行修改适用。
+9. 精通面向对象的程序设计思想和设计模式，熟练理解MVC以及MVVM
+10. 熟练书写需求文档、软件设计文档、开发文档、软件说明书等常用软件行业文档。
+11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743472973.jpg
+Java & Golang 开发工程师,15-25K,北京,3-5年,本科,"Java
+计算机/软件工程相关经验","1. 要求对两者都能入手，有一定经验。
+2. 责任心好，负责任。
+3. 兼职，按天算，至少两个月，待遇从优。
+4. 数字矿山服务端开发。",罗先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743472982.jpg
+Java (bpm业务流程管理）,8-11K,哈尔滨,3-5年,本科,"Java
+Hibernate
+MySQL
+MongoDB
 SQL Server
-Spring","基本要求：
-1.  统招硕士及以上学历，软件工程、计算机科学与技术、电子科学与技术、信息与通信工程、控制科学与工程、自动化等相关专业；；
-2. 2 年以上 JAVA RCP 编程经验；
-3. 熟悉 JAVA 的插件技术和 Eclipse、JS前端开发技术、SQL语法、Spring等主流技术或框架开发知识和技能；
-4. 熟悉 EMF, Parsley, Sirius, Papyrus, Moka, Xtend, Xtext, UML, Acceleo；
-5、有规范化、标准化的代码编写习惯，能独立编写技术文档，熟悉软件开发流程，对业务建模和相应的建模工具有一定的使用经验和理解；
-6、具有良好的沟通、协调能力，工作认真负责，能承受一定的工作压力。
-岗位职责：
-1. 基于 JAVA RCP 平台软件的项目开发和维护工作；
-2. 完成项目开发相关文档",周女士,行政人事主管,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743154082.jpg
+Spring
+Python","1. 流程设计与实施
+流程建模：根据业务需求使用BPMN（业务流程建模符号）工具设计和建模业务流程。
+流程实现：将设计的流程转化为可执行的流程模型，确保与系统集成。
+2. 开发与维护
+流程引擎开发：参与BPM流程引擎的开发与定制，包括流程执行、任务管理和事件处理。
+系统集成：与其他系统（如ERP、CRM等）集成，确保流程的顺利运行。
+3. 性能优化
+性能监控：监控流程执行的性能，识别和解决瓶颈，优化流程执行效率。
+调优与维护：定期评估和优化现有流程，确保其高效、可靠。
+4. 协调与沟通
+跨部门协作：与其他相关团队合作，确保需求的准确传递与实现。
+需求分析：参与需求讨论，理解业务流程，提出合理的技术解决方案。
+职位要求
+教育背景：计算机科学、软件工程或相关专业本科及以上学历。
+工作经验：5年以上Java开发经验，3年以上BPM流程引擎相关经验（如Camunda、Activiti等）。
+技能要求：熟悉BPMN标准，了解常用的流程引擎和工作流管理工具，具备良好的数据库和编程能力。",孙先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743472993.jpg
+Java Developer（证券/英文办公）,20-40K,深圳,3-5年,本科,"外企
+Java
+C++
+交易所
+证券
+SpringCloud
+MySQL
+React","Principal Responsibilities: 
+Perform system function design and deliver related documents
+Perform requirement development with Java 
+Key Responsibility Areas:
+Work with HK/SZ IT team to implement Client Connect/Synapse system
+Perform new requirement/enhancement development.
+Provide production system support.
+Undertake any other assignments and projects as assigned by superior
+To debug and provide solutions on system issues",张先生,招聘专员,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743473571.jpg
+Java & Python 工程师,10-12K,北京,3-5年,本科,"Java
+Nginx
+大数据经验
+不接受居家办公
+Docker
+MySQL
+Kafka
+Redis
+Spring
+Python","我们对任职要求、工作内容、工作方式进行了详细的描述，为了面试更高效，请认真阅读和判断，如果确实都匹配欢迎您投递简历。
+基本要求：
+1. 统招本科以上学历。
+2. 3年以上工作经验，熟练掌握 Java语言 和 Python语言。
+3. 算法方面有很好的基础，有严谨、清晰的逻辑思维。
+其他要求：
+目前的项目有的需要Java 也有的需要Python，所以你要能熟练使用多门语言。
+在工作中还会遇到新技术新问题，可能是你之前没接触或没听过的，你要有勇气接受挑战，通过自己的学习完成任务。当然整个过程中同事会给你足够的支持。
+你要善于利用AI，用AI来写代码，用AI来写文档，等等，并发现更多AI提升效率的方法。
+当项目进度遇阻或出现延期风险时，你要有勇气站出来，帮助别人，保证项目整体顺利进行的勇气和公心。
+你要有一个开放的心态，辩证的思维看待和分析问题，提出的结论明确，并且有依据有逻辑。
+你要有一个快乐的心态，可以畅所欲言，绝对坦诚的沟通。
+你对待工作要有激情，要敢于挑战更高的目标和困难。
+为了工作更流畅，团队配合更默契，我们也制定了如下的工作指导手册，他就像工作中的交通指示灯。
+1.任务前：当自己安排任务或自己承接任务时， 都要有明确的完成时间。 需求或工作事项都要明确，如果不明确自己就要问清楚，防止返工和延期。例如：详细的技术方案：流程图-数据结构-接口格式-伪代码的逻辑
+2.任务中：当自己的任务中遇到障碍时，不要等，我要把能做的先做好，将工作事项里能做的全都拆出来提前完成，保证整体不延期。自己要努力克服困难，尝试多种方法解决问题，追问自己真的没办法了吗？
+3.任务后：当自己的任务完成时，要及时主动找相关方确认，确保工作成果达标。
+4.任务阻：当自己发现项目遇到障碍时，要以项目高效交付为目的，尽力提出合理、可行的方案。
+例如：结论是什么 -> 理由依据和数据支撑 -> 行动步骤 
+5.会议内：当每天工作结束时，填写《每日更新》，写当天任务完成的具体内容，预先写明天的任务计划。
+6.会议外：当与客户开会时，不迟到，带本子记录好相关事项。需要的会议资料带齐全，内容准确、清晰。
+如果你看到这里了，并认为以上都可以做到，非常欢迎与我们联系。
+如果我们这里不适合你，也祝你能找到满意的工作。",杜女士,人事部HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743473581.jpg
+JAVA Developer（英文流利）,15-20K·13薪,天津,3-5年,本科,"Java
+不接受居家办公
+分布式经验
+Docker
+MySQL
+云计算经验
+架构设计经验","We are seeking a talented and motivated senior JAVA software engineer to join a high performing Scrum team to roll out new digital solution for SCB customers. The candidate must be a skilled professional who has E2E software development experience with a desire to work on an Agile, dynamic and flat organisational structure.
+Key Roles and Responsibilities：
+• Good communication skills in English (both oral & writing)
+• Develop function modules
+• Develop core foundation modules
+• Participate and Focus on design, dev, testing, implementation process.
+• Agile development of banking services
+• Collaborate with cross-functional teams in agile development
+• Conduct continuous development and / or integration
+Qualifications and Skills：
+• 6+ years of development experience
+• Strong knowledge of multiple programming languages (Java, Spring, Spring boot, PostgreSQL/Oracle, Hibernate as well as interpreted scripting language experience)
+• Restful API design and development
+• Microservices implementation experience with focus on domain drive design.
+• Familiar with Docker, Openshift container platform
+• Familiar and work experience with Linux/Shell script.
+• Strong analytical & problem solving and creative skills
+• Understand business, functional and technical requirement and specification and identify gap and provide feedback.
+• Good communication and written skills for daily work across team.
+• Prior experience working in an agile environment, continuous integration
+• Experience in delivering software in a regulated environment, ideally financial services based to high quality
+• Have a high enthusiasm for programming and new technology learning, have a strong learning ability 
+• Bachelor’s degree",李女士,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743473591.jpg
+Java (bpm业务流程管理）,8-11K,哈尔滨,3-5年,本科,"Java
+Hibernate
+MySQL
+MongoDB
+SQL Server
+Spring
+Python","1. 流程设计与实施
+流程建模：根据业务需求使用BPMN（业务流程建模符号）工具设计和建模业务流程。
+流程实现：将设计的流程转化为可执行的流程模型，确保与系统集成。
+2. 开发与维护
+流程引擎开发：参与BPM流程引擎的开发与定制，包括流程执行、任务管理和事件处理。
+系统集成：与其他系统（如ERP、CRM等）集成，确保流程的顺利运行。
+3. 性能优化
+性能监控：监控流程执行的性能，识别和解决瓶颈，优化流程执行效率。
+调优与维护：定期评估和优化现有流程，确保其高效、可靠。
+4. 协调与沟通
+跨部门协作：与其他相关团队合作，确保需求的准确传递与实现。
+需求分析：参与需求讨论，理解业务流程，提出合理的技术解决方案。
+职位要求
+教育背景：计算机科学、软件工程或相关专业本科及以上学历。
+工作经验：5年以上Java开发经验，3年以上BPM流程引擎相关经验（如Camunda、Activiti等）。
+技能要求：熟悉BPMN标准，了解常用的流程引擎和工作流管理工具，具备良好的数据库和编程能力。",孙先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743473599.jpg
+Java Web 高级开发工程师,7-12K,哈尔滨,3-5年,大专,"微服务架构
+分布式技术
+服务器配置
+后端开发
+SpringBoot
+SpringCloud
+Redis
+MySQL","1. 统招本科及以上，3年以上Java编程经验，负责公司自营产品研发。
+2. 责任心强、思维敏捷、良好编码习惯、良好的逻辑思维能力/沟通能力、分析与定位问题的能力，能适应公司相关安排工作。
+3. 精通Spring Boot，Spring Cloud，Spring MVC，MyBatis等相关技术
+4. 精通SQL 语句以及No SQL数据库（如Redis）,精通JS,精通HTML5相关技术
+5. 精通至少一种网络协议并有对应开发经验（HTTP、TCP、UDP等）
+6. 精通主流数据库MySQL、SQL Server、Oracle其中一种
+7. 有服务端实际开发经验，精通性能调优，会找到项目中性能痛点，解决高并发等问题。
+8. 精通使用第三方开源库，并可以进行项目需求，进行修改适用。
+9. 精通面向对象的程序设计思想和设计模式，熟练理解MVC以及MVVM
+10. 熟练书写需求文档、软件设计文档、开发文档、软件说明书等常用软件行业文档。
+11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743473608.jpg
+Java & Python 工程师,10-12K,北京,3-5年,本科,"Java
+Nginx
+大数据经验
+不接受居家办公
+Docker
+MySQL
+Kafka
+Redis
+Spring
+Python","我们对任职要求、工作内容、工作方式进行了详细的描述，为了面试更高效，请认真阅读和判断，如果确实都匹配欢迎您投递简历。
+基本要求：
+1. 统招本科以上学历。
+2. 3年以上工作经验，熟练掌握 Java语言 和 Python语言。
+3. 算法方面有很好的基础，有严谨、清晰的逻辑思维。
+其他要求：
+目前的项目有的需要Java 也有的需要Python，所以你要能熟练使用多门语言。
+在工作中还会遇到新技术新问题，可能是你之前没接触或没听过的，你要有勇气接受挑战，通过自己的学习完成任务。当然整个过程中同事会给你足够的支持。
+你要善于利用AI，用AI来写代码，用AI来写文档，等等，并发现更多AI提升效率的方法。
+当项目进度遇阻或出现延期风险时，你要有勇气站出来，帮助别人，保证项目整体顺利进行的勇气和公心。
+你要有一个开放的心态，辩证的思维看待和分析问题，提出的结论明确，并且有依据有逻辑。
+你要有一个快乐的心态，可以畅所欲言，绝对坦诚的沟通。
+你对待工作要有激情，要敢于挑战更高的目标和困难。
+为了工作更流畅，团队配合更默契，我们也制定了如下的工作指导手册，他就像工作中的交通指示灯。
+1.任务前：当自己安排任务或自己承接任务时， 都要有明确的完成时间。 需求或工作事项都要明确，如果不明确自己就要问清楚，防止返工和延期。例如：详细的技术方案：流程图-数据结构-接口格式-伪代码的逻辑
+2.任务中：当自己的任务中遇到障碍时，不要等，我要把能做的先做好，将工作事项里能做的全都拆出来提前完成，保证整体不延期。自己要努力克服困难，尝试多种方法解决问题，追问自己真的没办法了吗？
+3.任务后：当自己的任务完成时，要及时主动找相关方确认，确保工作成果达标。
+4.任务阻：当自己发现项目遇到障碍时，要以项目高效交付为目的，尽力提出合理、可行的方案。
+例如：结论是什么 -> 理由依据和数据支撑 -> 行动步骤 
+5.会议内：当每天工作结束时，填写《每日更新》，写当天任务完成的具体内容，预先写明天的任务计划。
+6.会议外：当与客户开会时，不迟到，带本子记录好相关事项。需要的会议资料带齐全，内容准确、清晰。
+如果你看到这里了，并认为以上都可以做到，非常欢迎与我们联系。
+如果我们这里不适合你，也祝你能找到满意的工作。",杜女士,人事部HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743473970.jpg
+Java Web 高级开发工程师,7-12K,哈尔滨,3-5年,大专,"微服务架构
+分布式技术
+服务器配置
+后端开发
+SpringBoot
+SpringCloud
+Redis
+MySQL","1. 统招本科及以上，3年以上Java编程经验，负责公司自营产品研发。
+2. 责任心强、思维敏捷、良好编码习惯、良好的逻辑思维能力/沟通能力、分析与定位问题的能力，能适应公司相关安排工作。
+3. 精通Spring Boot，Spring Cloud，Spring MVC，MyBatis等相关技术
+4. 精通SQL 语句以及No SQL数据库（如Redis）,精通JS,精通HTML5相关技术
+5. 精通至少一种网络协议并有对应开发经验（HTTP、TCP、UDP等）
+6. 精通主流数据库MySQL、SQL Server、Oracle其中一种
+7. 有服务端实际开发经验，精通性能调优，会找到项目中性能痛点，解决高并发等问题。
+8. 精通使用第三方开源库，并可以进行项目需求，进行修改适用。
+9. 精通面向对象的程序设计思想和设计模式，熟练理解MVC以及MVVM
+10. 熟练书写需求文档、软件设计文档、开发文档、软件说明书等常用软件行业文档。
+11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743473979.jpg
+Java & Golang 开发工程师,15-25K,北京,3-5年,本科,"Java
+计算机/软件工程相关经验","1. 要求对两者都能入手，有一定经验。
+2. 责任心好，负责任。
+3. 兼职，按天算，至少两个月，待遇从优。
+4. 数字矿山服务端开发。",罗先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743473990.jpg
+Java (bpm业务流程管理）,8-11K,哈尔滨,3-5年,本科,"Java
+Hibernate
+MySQL
+MongoDB
+SQL Server
+Spring
+Python","1. 流程设计与实施
+流程建模：根据业务需求使用BPMN（业务流程建模符号）工具设计和建模业务流程。
+流程实现：将设计的流程转化为可执行的流程模型，确保与系统集成。
+2. 开发与维护
+流程引擎开发：参与BPM流程引擎的开发与定制，包括流程执行、任务管理和事件处理。
+系统集成：与其他系统（如ERP、CRM等）集成，确保流程的顺利运行。
+3. 性能优化
+性能监控：监控流程执行的性能，识别和解决瓶颈，优化流程执行效率。
+调优与维护：定期评估和优化现有流程，确保其高效、可靠。
+4. 协调与沟通
+跨部门协作：与其他相关团队合作，确保需求的准确传递与实现。
+需求分析：参与需求讨论，理解业务流程，提出合理的技术解决方案。
+职位要求
+教育背景：计算机科学、软件工程或相关专业本科及以上学历。
+工作经验：5年以上Java开发经验，3年以上BPM流程引擎相关经验（如Camunda、Activiti等）。
+技能要求：熟悉BPMN标准，了解常用的流程引擎和工作流管理工具，具备良好的数据库和编程能力。",孙先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743473999.jpg
 Java Lead（英文口语流利）,35-45K·13薪,上海,10年以上,本科,"Java
 团队管理经验
 Elasticsearch
@@ -71,82 +443,106 @@ ACCOUNTABILITIES:
 • Ensure all staff is provided with training and resources needed to perform their jobs to the most outstanding degree possible. Ensure all staff is provided with frequent feedback and coaching in order to meet and exceed individual and team performance goals consistently.
 • Manage and encourage new ideas from staff to foster improvements through innovations.
 • Empower the staff to be accountable and responsible for their own actions and decisions.
-• All other duties as assigned.",伍女士,recruiter,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743154091.jpg
-java web 后端,16-18K·13薪,武汉,3-5年,本科,alert,"岗位职责：
-1.负责新项目需求开发，并能够按要求、高质量地完成开发任务;
-2.按照原型设计的功能，实现模块的代码编写和维护;
-3.按公司规范进行编码，并对开发的代码进行单元测试;
-4.迭代现有软件产品，能快速定位并修复现有软件缺陷。 
-任职要求： 
-1.计算机相关专业本科及以上学历，3年以上开发经验，java语言基础知识扎实，熟练使用SpringMVC、Mybatis主流开发框架;
-2.熟悉主流开源应用框架及相关开发技术，如：Zookeeper,Swagger、Redis、Kafka等; 
-3.对JavaScript、Ajax、Html有一定了解和使用; 
-4.熟练使用git/svn,maven/gradle等工具;
-5.熟悉 MySQL/Oracle/DB2，具备一定的数据库性能调优能力;
-6.使用spring boot/spring cloud开发过项目，具备改造框架源码和引用源码能力;
-7.沟通能力强，能独立完成分析需求和设计，并具备一定的耐压能力和学习能力。",张女士,hr,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743154101.jpg
-Java Web 开发,12-16K,北京,1-3年,本科,"搜索引擎技术
-Spring
-Redis
-NoSQL
+• All other duties as assigned.",伍女士,recruiter,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743474008.jpg
+Java Developer（证券/英文办公）,20-40K,深圳,3-5年,本科,"外企
+Java
+C++
+交易所
+证券
+SpringCloud
 MySQL
-架构师","完美氪由北京邮电大学的创业团队与国内最大电子元器件经销平台的创始人联合创立，致力于为电子元器件行业提供社交媒体、电子商务、数据分析、行业工具、创客支持等平台或服务。加入我们，你可以与行业天使投资人一起工作，接触到行业顶尖人脉，了解到行业最前沿资讯！
-出于创始⼈团队对⽬前国内电⼦元器件分销⾏业上下游存在的痼疾沉疴的思考，也出于创始⼈团队对⾏业的使命感，我们希望积跬步以致千⾥，希望从第⼀步起，从新⼀代⼈开始，逐步建⽴起科学、有序、合规、健康的电⼦元器件设计、⽣产、应⽤、分销的上下游⽣态。
-目前公司几项主要产品处于内部测试与筹备上线中，欢迎你的加入！
-「能力要求」
-1. 统招本科及以上学历，计算机相关专业，基础知识扎实（重要）；
-2. 学习能力强，有独立解决问题的能力；有良好的沟通能力和业务理解能力。
-3. 扎实的Java基础，精通Java EE、数据库、缓存、索引等技术；
-4. 精通Spring、MyBatis、Redis、MySQL、ES或Solr，熟悉NoSQL；
-「岗位职责」
-1. 负责公司当前核心平台之一的开发与维护;
-2. 负责高质量的设计和编码；承担重点、难点的技术攻坚；
-3. 参与系统架构设计、技术选型、开发任务分解、工作量评估；
-4. 分析解决系统性能问题，提升系统稳定性、伸缩性、扩展性。
-「企业优势」
-1. 深耕20余年行业大牛带队，专业可靠有保障；
-2. 坚定的955wlb支持者；
-3. 免费外卖午餐及零食下午茶供应；
-4. 氛围平等融洽，工作环境优雅宽松。",李先生,招聘主管,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743154114.jpg
-java php 移动端 程序员,1-2K,烟台,在校/应届,本科,"Java
-PHP","1.2020年及以后毕业的在校大学生，可连续实习3个月以上；
-2.对工作有充分的热情、做事认真。
-3.计算机相关专业。
-4 正式员工福利：周末双休、节假日福利、员工关怀、年终奖、绩效奖、股权激励。
-5 发展空间：公司立足于零售行业智能化解决方案领域，拥有深厚的零售行业知识沉淀，且国内零售行业仍处于信息化、智能化的初级阶段，对于每位入职人员提供广扩舞台，终将大有可为。公司产品已销往全家便利店、中石化易捷、三江购物等数十家国内知名零售企业，客户中不乏行业翘楚。充分说明公司得到了行业认可。公司目前已进入快速发展期，团队规模正逐步有序扩大，希望广聚天下英豪及有志之士一同拼搏，公司会给予您想的职位、薪酬与个人成就！",王先生,技术总监,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743154125.jpg
-Java +vue 兼职开发,11-20K·13薪,武汉,10年以上,本科,"Java
-Python
+React","Principal Responsibilities: 
+Perform system function design and deliver related documents
+Perform requirement development with Java 
+Key Responsibility Areas:
+Work with HK/SZ IT team to implement Client Connect/Synapse system
+Perform new requirement/enhancement development.
+Provide production system support.
+Undertake any other assignments and projects as assigned by superior
+To debug and provide solutions on system issues",张先生,招聘专员,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743474214.jpg
+Java & Python 工程师,10-12K,北京,3-5年,本科,"Java
+Nginx
+大数据经验
+不接受居家办公
+Docker
+MySQL
+Kafka
+Redis
 Spring
-计算机软件
-云计算","岗位职责：
-1、参与微服务应用开发，参与前端的设计与开发；
-2、根据需求分析文档，能够独立完成功能模块的代码编写，按时完成交代的开发任务；
-3、参与新技术的调研及引进
-4、根据设计方案，遵守开发规范，编写高质量、结构清晰、易读、易维护的代码；
-5、维护管理或协助管理所开发的微服务组件，并根据需求不断修改完善软件系统
-6、后续可能涉及到大数据方面的开发工作
-任职要求：
-1、3年以上互联网或者软件开发经验
-2、熟悉微服务，熟悉前端vue，有实战经验
-3、熟练使用至少一种编程语言，如Go，java，Python，C/C++等
-4、有高并发线上系统研发经验，熟练使用常用的性能优化方法和工具
-5、至少有一个比较专长的技术方向
-6、熟悉各种云服务的使用和原理优先
-7、熟悉Spring Cloud架构和实现优先
-8、积极、上进。此岗位是兼职，兼职",刘女士,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743350258.jpg,武汉优恒伟创信息技术有限公司,No description available,伍庆林,2014-04-21,有限责任公司（自然人投资或控股）,存续,10万人民币,武汉东湖新技术开发区华师园北路六号光元科技园二号厂房栋B座5-8、13、15层F730,2014-04-21至-,湖北省,91420100303384128K,2024-06-24,,武汉东湖新技术开发区市场监督管理局,,许可项目：互联网信息服务（依法须经批准的项目，经相关部门批准后方可开展经营活动，具体经营项目以相关部门批准文件或许可证件为准）一般项目：技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广；网络与信息安全软件开发；云计算设备销售；信息技术咨询服务；互联网数据服务；业务培训（不含教育培训、职业技能培训等需取得许可的培训）；互联网销售（除销售需要许可的商品）（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）,,,0-20人计算机软件,,"武汉江夏区腾睿大厦6301 (114.392544,30.458298)"
-Java! java! JAVA开发（大厂高薪）,20-40K·16薪,西安,3-5年,本科,"Java
-Tomcat
-Spring","岗位职责:
-1、负责SAAS软件产品需求分析、架构设计、系统设计和代码实现;
-2、负责高质量的设计和编码，承担重点、难点的技术攻坚;
-3、主导或参与系统核心模块的技术竞争力构建，跟踪分析业界发展趋势并完成竞争力分析;
-4、负责SAAS软件产品工程能力建设，运用仙剑的交付模式，持续提升交付效率。
-岗位要求
-1、统招公立本科学历，2年以上相关工作经验；
-2、JAVA基础扎实，充分理解面向对象，熟悉io、nio、多线程、设计模式、通信协议等基础技术；熟悉JVM 工作原理并掌握常见性能调优方法；
-3、熟悉Spring、Springmvc、Mybatis、Hibernate等常用开发框架及特征，熟悉常用中间件Tomcat、Mq、Kafka等；
-4、熟悉单元测试用例开发；熟悉软件技术文档的编写；
-5、具备良好的文档编制习惯和代码书写规范；",潘先生,招聘经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743350455.jpg
+Python","我们对任职要求、工作内容、工作方式进行了详细的描述，为了面试更高效，请认真阅读和判断，如果确实都匹配欢迎您投递简历。
+基本要求：
+1. 统招本科以上学历。
+2. 3年以上工作经验，熟练掌握 Java语言 和 Python语言。
+3. 算法方面有很好的基础，有严谨、清晰的逻辑思维。
+其他要求：
+目前的项目有的需要Java 也有的需要Python，所以你要能熟练使用多门语言。
+在工作中还会遇到新技术新问题，可能是你之前没接触或没听过的，你要有勇气接受挑战，通过自己的学习完成任务。当然整个过程中同事会给你足够的支持。
+你要善于利用AI，用AI来写代码，用AI来写文档，等等，并发现更多AI提升效率的方法。
+当项目进度遇阻或出现延期风险时，你要有勇气站出来，帮助别人，保证项目整体顺利进行的勇气和公心。
+你要有一个开放的心态，辩证的思维看待和分析问题，提出的结论明确，并且有依据有逻辑。
+你要有一个快乐的心态，可以畅所欲言，绝对坦诚的沟通。
+你对待工作要有激情，要敢于挑战更高的目标和困难。
+为了工作更流畅，团队配合更默契，我们也制定了如下的工作指导手册，他就像工作中的交通指示灯。
+1.任务前：当自己安排任务或自己承接任务时， 都要有明确的完成时间。 需求或工作事项都要明确，如果不明确自己就要问清楚，防止返工和延期。例如：详细的技术方案：流程图-数据结构-接口格式-伪代码的逻辑
+2.任务中：当自己的任务中遇到障碍时，不要等，我要把能做的先做好，将工作事项里能做的全都拆出来提前完成，保证整体不延期。自己要努力克服困难，尝试多种方法解决问题，追问自己真的没办法了吗？
+3.任务后：当自己的任务完成时，要及时主动找相关方确认，确保工作成果达标。
+4.任务阻：当自己发现项目遇到障碍时，要以项目高效交付为目的，尽力提出合理、可行的方案。
+例如：结论是什么 -> 理由依据和数据支撑 -> 行动步骤 
+5.会议内：当每天工作结束时，填写《每日更新》，写当天任务完成的具体内容，预先写明天的任务计划。
+6.会议外：当与客户开会时，不迟到，带本子记录好相关事项。需要的会议资料带齐全，内容准确、清晰。
+如果你看到这里了，并认为以上都可以做到，非常欢迎与我们联系。
+如果我们这里不适合你，也祝你能找到满意的工作。",杜女士,人事部HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743474222.jpg
+JAVA Developer（英文流利）,15-20K·13薪,天津,3-5年,本科,"Java
+不接受居家办公
+分布式经验
+Docker
+MySQL
+云计算经验
+架构设计经验","We are seeking a talented and motivated senior JAVA software engineer to join a high performing Scrum team to roll out new digital solution for SCB customers. The candidate must be a skilled professional who has E2E software development experience with a desire to work on an Agile, dynamic and flat organisational structure.
+Key Roles and Responsibilities：
+• Good communication skills in English (both oral & writing)
+• Develop function modules
+• Develop core foundation modules
+• Participate and Focus on design, dev, testing, implementation process.
+• Agile development of banking services
+• Collaborate with cross-functional teams in agile development
+• Conduct continuous development and / or integration
+Qualifications and Skills：
+• 6+ years of development experience
+• Strong knowledge of multiple programming languages (Java, Spring, Spring boot, PostgreSQL/Oracle, Hibernate as well as interpreted scripting language experience)
+• Restful API design and development
+• Microservices implementation experience with focus on domain drive design.
+• Familiar with Docker, Openshift container platform
+• Familiar and work experience with Linux/Shell script.
+• Strong analytical & problem solving and creative skills
+• Understand business, functional and technical requirement and specification and identify gap and provide feedback.
+• Good communication and written skills for daily work across team.
+• Prior experience working in an agile environment, continuous integration
+• Experience in delivering software in a regulated environment, ideally financial services based to high quality
+• Have a high enthusiasm for programming and new technology learning, have a strong learning ability 
+• Bachelor’s degree",李女士,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743474231.jpg
+Java (bpm业务流程管理）,8-11K,哈尔滨,3-5年,本科,"Java
+Hibernate
+MySQL
+MongoDB
+SQL Server
+Spring
+Python","1. 流程设计与实施
+流程建模：根据业务需求使用BPMN（业务流程建模符号）工具设计和建模业务流程。
+流程实现：将设计的流程转化为可执行的流程模型，确保与系统集成。
+2. 开发与维护
+流程引擎开发：参与BPM流程引擎的开发与定制，包括流程执行、任务管理和事件处理。
+系统集成：与其他系统（如ERP、CRM等）集成，确保流程的顺利运行。
+3. 性能优化
+性能监控：监控流程执行的性能，识别和解决瓶颈，优化流程执行效率。
+调优与维护：定期评估和优化现有流程，确保其高效、可靠。
+4. 协调与沟通
+跨部门协作：与其他相关团队合作，确保需求的准确传递与实现。
+需求分析：参与需求讨论，理解业务流程，提出合理的技术解决方案。
+职位要求
+教育背景：计算机科学、软件工程或相关专业本科及以上学历。
+工作经验：5年以上Java开发经验，3年以上BPM流程引擎相关经验（如Camunda、Activiti等）。
+技能要求：熟悉BPMN标准，了解常用的流程引擎和工作流管理工具，具备良好的数据库和编程能力。",孙先生,招聘者,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743474242.jpg
 Java Web 高级开发工程师,7-12K,哈尔滨,3-5年,大专,"微服务架构
 分布式技术
 服务器配置
@@ -164,71 +560,123 @@ MySQL","1. 统招本科及以上，3年以上Java编程经验，负责公司自�
 8. 精通使用第三方开源库，并可以进行项目需求，进行修改适用。
 9. 精通面向对象的程序设计思想和设计模式，熟练理解MVC以及MVVM
 10. 熟练书写需求文档、软件设计文档、开发文档、软件说明书等常用软件行业文档。
-11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743350463.jpg
-java (票据+13薪签合同+公积金全额）,10-14K·13薪,深圳,3-5年,本科,"Java
-分布式经验
-SpringCloud
-MySQL
-票据
-Spring","岗位职责:
-1. 负责票据相关业务的处理和管理
-2. 与团队合作，完成上级交付的任务
-3. 持续优化工作流程，提升工作效率
-任职要求：
-1. 具备良好的沟通能力和团队协作精神
-2. 能够高效完成任务，并具备解决问题的能力
-3. 对工作有持续改进的热情，愿意学习新知识
-4.3年+java经验",江女士,hr,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743350472.jpg
-Java +vue 兼职开发,11-20K·13薪,武汉,10年以上,本科,"Java
+11. 有成熟项目经验，CET4或以上，技术博客，熟悉多种语言者优先。",于先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743474252.jpg
+机器学习 校招,10-15K·16薪,深圳,在校/应届,本科,"搜索/推荐
+语音/图像识别
+翻译
 Python
-Spring
-计算机软件
-云计算","岗位职责：
-1、参与微服务应用开发，参与前端的设计与开发；
-2、根据需求分析文档，能够独立完成功能模块的代码编写，按时完成交代的开发任务；
-3、参与新技术的调研及引进
-4、根据设计方案，遵守开发规范，编写高质量、结构清晰、易读、易维护的代码；
-5、维护管理或协助管理所开发的微服务组件，并根据需求不断修改完善软件系统
-6、后续可能涉及到大数据方面的开发工作
+TensorFlow/PyTorch
+计算机相关专业
+机器学习算法/工程化经验
+深度学习经验","欢迎富有激情的研发人才加入我们的团队！作为一家由政府科创资金和多家中美上市公司投资的领先科技企业，我们致力于为全球客户提供卓越的技术。
+本职位为应届校招招聘，招收本科、研究生毕业生。另有社招其他岗位，请点击公司页面了解。
+我们为您提供：
+- 企业付费的跨境网络、GitHub Pro、Copilot X、ChatGPT；
+- 甲级写字楼优质办公环境、具有竞争力的薪资和待遇；
+- 根据工作表现，提供1-4个月薪资的年终奖；
+- 试用期提供全额五险一金；
+- 除享有国家法定节假日外，还可享受带薪年假；
+机器学习/深度学习/AI人工智能实习生工作职责：
+* 协助研发团队进行机器学习、深度学习、AI相关项目的研究与实施；
+* 参与机器学习、深度学习模型的设计、开发和优化；
+* 针对不同业务需求，协助开发和应用高效的AI算法；
+* 与团队成员协作，完成数据分析、特征工程和模型验证等工作；
+* 跟踪最新的AI技术发展，为公司产品和服务提供技术支持。
+机器学习/深度学习/AI人工智能实习生职位要求：
+* 扎实的计算机科学基础；
+* 有机器学习、深度学习、AI相关课程或项目经验者优先；
+* 熟练掌握Python编程，了解C/C++等编程语言优先；
+* 了解主流机器学习、深度学习框架和工具，如TensorFlow、PyTorch等；
+* 具备扎实的数学基础，熟悉统计学、线性代数、概率论等相关知识；
+* 必须具备阅读和编写英文文档的能力；
+* 
+对实习工程师的基本要求：
+* 可在精干小团队中发挥独立工作的能力；
+* 须热爱技术研发，把工作的当做乐趣，具有抗压能力；
+* 具有很强的分析问题和解决问题的能力，攻关疑难问题的强烈兴趣，善于学习；",万女士,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_0_1743474389.jpg
+机器学习,17-30K,深圳,5-10年,本科,"C/C++
+時序
+機器
+PHM
+图像算法
+深度学习
+算法工程化经验
+其他
+数据挖掘
+运筹优化
+大数据处理工具(Spark/Hadoop/Hive)
+Python","設備異常預警
+參數自動修正",江先生,智動化開發處,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_1_1743474399.jpg
+机器学习,15-30K,杭州,3-5年,本科,"发表算法相关优秀论文
+C/C++
+深度学习
+大模型算法
+多模态算法
+算法工程化经验
+数据挖掘
+推荐算法
+Python","岗位职责：
+1.根据公司需求负责提供大数据分析建模方案，明确其中的优化目标、变量、与约束条件，并转化为模型
+2.负责机器学习问题的探索与研究，结合应用场景，提供全面的技术解决方案
+3.算法研发：根据业务场景，提供相应的算法推荐
+4.系统地呈现分析的结果，不断完善梦想家智能生成系统
 任职要求：
-1、3年以上互联网或者软件开发经验
-2、熟悉微服务，熟悉前端vue，有实战经验
-3、熟练使用至少一种编程语言，如Go，java，Python，C/C++等
-4、有高并发线上系统研发经验，熟练使用常用的性能优化方法和工具
-5、至少有一个比较专长的技术方向
-6、熟悉各种云服务的使用和原理优先
-7、熟悉Spring Cloud架构和实现优先
-8、积极、上进。此岗位是兼职，兼职",刘女士,HR,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743350482.jpg
-Java p6/p7,30-50K·16薪,上海,3-5年,本科,"JVM
+计算机，计算机工程，统计，应用数学等相关专业本科及以上学历
+熟练掌握Python
+熟练掌握树模型,比如lightGBM,XGBoost,以及深度神经网络模型，比如LSTM，GNN.
+扎实的优化理论功底，比如凸优化和非凸优化
+熟练掌握至少一种深度学习框架，如Torch,Tensorflow等
+有突出的分析问题和解决问题能力，强烈的责任感,有较强的学习能力及沟通协调能力",郑先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_2_1743474408.jpg
+机器学习,140-280元/天,南京,2天/周 6个月,硕士,"发表算法相关优秀论文
+C/C++
 Java
-分布式经验
-Kafka
-分布式技术
-架构师
-Redis
-Dubbo
-SpringBoot
-Spring
-SSM
-HBase
-微服务经验
-MySQL
-微服务架构
-MyBatis
-架构设计经验
-Python","工作职责：
-• 1. 负责得物app电商交易平台业务系统核心开发，并主导落地实施；
-• 2. 深入发掘和分析业务需求，撰写技术方案和系统设计；
-• 3. 参与技术方案和系统设计评审；把握复杂系统的设计，确保系统的架构质量；
-• 4. 系统核心部分代码编写；解决疑难问题；
-• 5. 对负责的业务有主人翁意识，对现存或未来系统进行宏观的思考，形成统一的框架、平台或组件；
-• 6. 为团队引入创新的技术、创新的解决方案，用创新的思路解决问题。
-任职资格：
-• 1. Java基础扎实，理解io、多线程、集合等基础框架，对JVM原理有一定的了解；熟悉面向对象设计开发;
-• 2. 3年以上使用JAVA开发的经验，对于你用过的主要的开源框架，能了解到原理和机制的层面；
-• 3. 熟悉分布式系统的设计和应用，熟悉分布式、缓存、消息、搜索、推荐等机制；能对分布式常用技术进行合理应用，解决问题；
-• 4. 掌握Linux操作系统和大型数据库；有较强的分析设计能力和方案整合能力；
-• 5. 良好的沟通技能，团队合作能力，勤奋好学；
-• 6. 对互联网或J2EE应用开发的最新潮流有关注，喜欢去看及尝试最新的技术，追求编写优雅的代码，从技术趋势和思路上能影响技术团队；
-• 7. 有面向电商交易，商品，营销，会员，订单，履约等相关平台研发经验者有先。
-• 8. 同时具备一定数据计算能力，算法经验者优先",陈先生,java技术专家,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743350492.jpg
+图像算法
+深度学习
+大模型算法
+自然语言处理算法
+强化学习
+参加算法相关竞赛/获奖
+MATLAB
+数据挖掘
+Python","机器学习，深度学习，强化学习，卷积神经网络，多智能体，聚类分析，数据挖掘，精通python，TensorFlow，matlab，等等
+岗位职责：重点高校优秀硕士博士以上能力。能够快速实现系统工程师需求。",母先生,总经理,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_3_1743474417.jpg
+机器学习,20-30K,新乡,10年以上,硕士,"发表算法相关优秀论文
+C/C++
+搜索算法
+规控算法
+深度学习
+多模态算法
+算法工程化经验
+大数据处理工具(Spark/Hadoop/Hive)","算法和产品开发：
+1、领导图像引导手术和医学影像的机器学习算法研究和开发，创建可视化和性能分析工具。
+2、设计、迭代和优化软件解决方案，解决图像处理、计算机视觉、影像引导和在现实临床中的问题。
+3、推动机器学习模型在产品环境中的部署和集成，确保模型运行效率和性能。
+4、领导算法和软件的评估和验证，实施多方面的性能标准，彻底测试和分析以确保产品准确性和可靠性。
+5、分析、诊断并解决内部和外部用户报告的问题，与技术服务工程师合作提供客户支持。
+团队和跨职能职责：
+6、领导并指导机器学习团队成员，在算法开发、编码最佳实践和最新机器学习技术方面提供指导。促进协作和高效的工作环境，并确保团队成员的职业发展和工作表现。
+7、与跨职能团队合作，了解项目需求和目标，并将其转化为开发计划。
+8、收集软件性能、用户体验和功能需求的内部和外部反馈，推动产品改进。
+9、主持技术讨论，汇报研究成果，向项目相关者提供技术建议并参与决策过程。
+机器学习基础设施和研究：
+10. 构建支持机器学习研究和开发的硬件基础设施和软件环境。
+11.开发支持算法开发的机器学习数据流程，包括组织数据集、完善数据标签、和构建数据库。
+12.关注机器学习研究、技术和工具的最新进展，并将其应用于我们的项目中。
+任职要求：
+1、计算机科学、电气工程、生物医学工程或相关领域的硕士或博士学位；具有本科学位但表现卓越也将被考虑。
+2、在机器学习领域拥有2年以上的研究和开发经验。
+3、在领先的机器学习、计算机视觉和医学影像会议和期刊（例如CVPR、ICCV、ECCV、ICML、NIPS、MICCAI、SPIE、ISBI、TMI等）上有发表研究论文记录者, 将被优先考虑。
+4、精通Python编程, 熟悉C/C++编程。
+5、精通PyTorch/TensorFlow进行深度学习模型开发。
+6、深刻理解机器学习的基本原理，包括数据、模型/架构、训练/评估过程和部署技术。
+7、将知识和概念转化为造福人类生活的现实医疗产品的热情。
+8、拥有扎实的数学基础和分析能力，能够将抽象概念转化为实际的算法解决方案。
+9、优秀的沟通和领导能力，能够有效地指导和引导团队成员。
+10、能够与跨职能团队紧密合作，将机器学习算法集成到现实产品和解决方案中。
+具有以下特点优先考虑:
+1、具有图像分割的专业经验，包括各种实例和语义分割技术方面的经验, 将被优先考虑。
+2、具有优化和部署机器学习算法模型到产品软件中的专业经验，将被优先考虑。
+3、熟悉医学影像者, 将被优先考虑。在2D/3D图像处理和/或计算机视觉方面有经验者, 将被优先考虑。
+4、具有GPU加速计算/CUDA经验者, 将被优先考虑。
+5、具有OpenCV和ITK经验者, 将被优先考虑。
+6、具有版本控制工具（如Git）经验者, 将被优先考虑",李先生,PM,C:\Users\rasel\Desktop\webSpider\data\images\hr_images\hr_image_4_1743474429.jpg
