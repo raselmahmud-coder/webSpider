@@ -8,6 +8,9 @@ import shutil
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+from main_search_engine import main_search_engine
+
+
 # Tools and helper functions
 
 
@@ -40,14 +43,18 @@ def get_current_time(location: str) -> str:
     return now.strftime("%Y-%m-%d %H:%M:%S %Z")
 
 
-def add_two_numbers(a: int, b: int) -> int:
-    """Add two numbers"""
-    return a + b
+def get_baidu_search(query: str) -> str:
+    """Retrieve current data from Baidu search"""
 
-
-def subtract_two_numbers(a: int, b: int) -> int:
-    """Subtract two numbers"""
-    return a - b
+    try:
+        # Call the main_search_engine function with the query
+        print("Calling the search engine function .... ")
+        result = main_search_engine(query)
+        print("result expected ====>>>", result)
+        return result
+    except Exception as e:
+        print(f"Error in Baidu search: {e}")
+        return "Error occurred while performing Baidu search."
 
 
 def get_stock_price(symbol: str) -> float:
@@ -63,37 +70,23 @@ def get_stock_price(symbol: str) -> float:
 
 
 # Manual tool definitions
-add_two_numbers_tool = {
+
+
+baidu_search_tool = {
     'type': 'function',
     'function': {
-        'name': 'add_two_numbers',
-        'description': 'Add two numbers',
+        'name': 'get_baidu_search',
+        'description': 'Search for information about salaries, jobs, and employment details in Chinese cities using Baidu',
         'parameters': {
             'type': 'object',
-            'required': ['a', 'b'],
+            'required': ['query'],
             'properties': {
-                'a': {'type': 'integer', 'description': 'The first number'},
-                'b': {'type': 'integer', 'description': 'The second number'},
+                'query': {'type': 'string', 'description': 'The search query about jobs, salaries, or employment information (especially for Chinese cities)'},
             },
         },
     },
 }
 
-subtract_two_numbers_tool = {
-    'type': 'function',
-    'function': {
-        'name': 'subtract_two_numbers',
-        'description': 'Subtract two numbers',
-        'parameters': {
-            'type': 'object',
-            'required': ['a', 'b'],
-            'properties': {
-                'a': {'type': 'integer', 'description': 'The first number'},
-                'b': {'type': 'integer', 'description': 'The second number'},
-            },
-        },
-    },
-}
 
 get_stock_price_tool = {
     'type': 'function',
@@ -126,12 +119,12 @@ get_current_time_tool = {
     'type': 'function',
     'function': {
         'name': 'get_current_time',
-        'description': 'Get the current time for a given location',
+        'description': 'Get the current time or date for world wide major cities or country name to be noted it is only for time or date queries)',
         'parameters': {
             'type': 'object',
             'required': ['location'],
             'properties': {
-                'location': {'type': 'string', 'description': 'The location name (e.g., Beijing, London)'},
+                'location': {'type': 'string', 'description': 'The location name (supported cities: China -> Beijing, Bangladesh -> Dhaka, USA -> New York, UK -> London)'},
             },
         },
     },
@@ -146,12 +139,12 @@ def main():
     args = parser.parse_args()
 
     print("Prompt:", args.prompt)
+    original_prompt = args.prompt  # Store the original prompt
 
     # Map function names to functions for tool call processing
     available_functions: Dict[str, Callable] = {
         'request': requests.request,
-        'add_two_numbers': add_two_numbers,
-        'subtract_two_numbers': subtract_two_numbers,
+        'get_baidu_search': lambda **kwargs: get_baidu_search(original_prompt),
         'get_stock_price': get_stock_price,
         'get_disk_usage': get_disk_usage,
         'get_current_time': get_current_time,
@@ -159,8 +152,7 @@ def main():
 
     # Define the list of tools to offer to the LLM.
     tools = [
-        add_two_numbers_tool,
-        subtract_two_numbers_tool,
+        baidu_search_tool,
         get_stock_price_tool,
         disk_usage_tool,
         get_current_time_tool,
@@ -180,13 +172,21 @@ def main():
 
     # Process any tool calls made by the model.
     if response.message.tool_calls:
+
         for tool_call in response.message.tool_calls:
             func = available_functions.get(tool_call.function.name)
+
             if func:
                 print("Calling function:", tool_call.function.name)
-                print("Arguments:", tool_call.function.arguments)
-                output = func(**tool_call.function.arguments)
+
+                if tool_call.function.name == 'get_baidu_search':
+                    print("Full prompt being used:", original_prompt)
+                    output = func()
+                else:
+                    print("Arguments:", tool_call.function.arguments)
+                    output = func(**tool_call.function.arguments)
                 print("Function output:", output)
+
             else:
                 print("Function not found:", tool_call.function.name)
 

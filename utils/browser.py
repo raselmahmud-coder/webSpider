@@ -31,7 +31,7 @@ def create_driver(is_headless=False):
     return driver
 
 
-def wait_for_page_load(driver, timeout=10):
+def wait_for_page_load(driver, timeout=60):
     """Wait for page to load completely"""
     WebDriverWait(driver, timeout).until(
         lambda driver: driver.execute_script(
@@ -42,7 +42,7 @@ def wait_for_page_load(driver, timeout=10):
 def wait_for_element(
     driver,
     xpath: str,
-    timeout: int = 20,
+    timeout: int = 40,
     check_text: bool = True,
     wait_type: str = "presence"
 ) -> Optional[object]:
