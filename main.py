@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 def main():
     try:
         driver = create_driver()  # default is_headless is False
-        job_cards = do_query_by_skills(driver=driver, skill="Java")
+        job_cards = do_query_by_skills(driver=driver)
 
         if len(job_cards) > 0:
             print("query func loaded ************ ", len(job_cards[:5]))

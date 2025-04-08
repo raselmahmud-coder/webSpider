@@ -40,7 +40,16 @@ tools = [{
         "required": ["latitude", "longitude"],
         "additionalProperties": False
     },
-    "strict": True
+    "strict": True},
+    {
+    "type": "web_search_preview",
+    "search_context_size": "medium",
+        "user_location": {
+            "type": "approximate",
+            "country": "US",  # Change this to your desired country code
+            "city": "New York",  # Change this to your desired city
+            "region": "New York",  # Change this to your desired region
+        }
 }]
 
 # First call to the model
@@ -59,7 +68,7 @@ final_tool_calls = {}
 
 # Handle streamed response and process each event
 for event in response:
-    print("Streaming event:", event)
+    # print("Streaming event:", event)
 
     if event.type == 'response.output_item.added':
         print("Function call added:", event)

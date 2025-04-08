@@ -172,7 +172,18 @@ def extract_company_info(driver, index):
 
         # Open the company details page in a new tab
         driver.execute_script("window.open(arguments[0]);", company_url)
+    except Exception as e:
+        print(f"Error extracting a element in company URL: {str(e)}")
+        print("Skipping company information extraction for this job...")
+        # Return early to skip the rest of the company info extraction
+        return {
+            'company_name': 'N/A',
+            'company_description': 'N/A',
+            'company_details': {},
+            'company_addresses': []
+        }
 
+    try:
         # Switch to the new tab
         WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > 1)
         driver.switch_to.window(driver.window_handles[-1])
@@ -184,8 +195,11 @@ def extract_company_info(driver, index):
                 (By.XPATH, "//div[contains(@class, 'company-info')]"))
         )
         print("Waiting for page loading...")
+    except Exception as e:
+        print(f"Error in switch in the new tab: {str(e)}")
         time.sleep(2)
 
+    try:
         # Wait for the page unfold/expand to find the "more info" label about business information section
         more_info_label = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located(
@@ -204,32 +218,35 @@ def extract_company_info(driver, index):
         )
         print("Waiting finished soon enter into try block...")
 
-        # Extract company information (adjust the XPath as needed)
-        try:
-            company_name = driver.find_element(
-                By.XPATH, "//h1[contains(@class, 'name')]").text
-            description_element = driver.find_elements(
-                By.XPATH, "//div[contains(@class, 'text fold-text')]")
+    except Exception as e:
+        print(f"Error in unfold section: {str(e)}")
 
-            # Extract text if element was found
-            if description_element:
-                company_description = description_element[0].text
-            else:
-                company_description = "No description available"
+    # Extract company information (adjust the XPath as needed)
+    try:
+        company_name = driver.find_element(
+            By.XPATH, "//h1[contains(@class, 'name')]").text
+        description_element = driver.find_elements(
+            By.XPATH, "//div[contains(@class, 'text fold-text')]")
 
-            # Print the extracted company information
-            print(f"Company Name: {company_name}")
-            print(f"Company Description: {company_description}")
+        # Extract text if element was found
+        if description_element:
+            company_description = description_element[0].text
+        else:
+            company_description = "No description available"
 
-        except Exception as e:
-            print(f"Error extracting company description: {str(e)}")
+        # Print the extracted company information
+        print(f"Company Name: {company_name}")
+        print(f"Company Description: {company_description}")
 
+    except Exception as e:
+        print(f"Error extracting company description: {str(e)}")
+
+    try:
         # Collect company basic info
         company_data = {
             'company_name': company_name,
             'company_description': company_description
         }
-
         # Extract detailed company information
         company_details = extract_company_details(driver)
 
@@ -237,7 +254,10 @@ def extract_company_info(driver, index):
         print("\nDetailed Company Information:")
         for key, value in company_details.items():
             print(f"{key}: {value}")
+    except Exception as e:
+        print(f"Error extracting company_details: {str(e)}")
 
+    try:
         # Extract company addresses
         company_addresses = extract_company_addresses(driver)
 
@@ -248,14 +268,18 @@ def extract_company_info(driver, index):
             print(f"  Location: {addr['address']}")
             print(f"  Coordinates: {addr['coordinates']}")
             print(f"  Address ID: {addr['address_id']}")
+    except Exception as e:
+        print(f"Error extracting company's address: {str(e)}")
 
+    try:
         # Save all collected data to CSV
-        save_company_to_csv(company_data, company_details, company_addresses)
+        save_company_to_csv(
+            company_data, company_details, company_addresses)
 
         print("Company data has been saved to CSV successfully!")
 
     except Exception as e:
-        print(f"Error extracting company information: {str(e)}")
+        print(f"Error in save company to csv: {str(e)}")
 
     finally:
         # Close the company details tab and switch back to the main window
