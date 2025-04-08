@@ -1,5 +1,5 @@
 import time
-from config import BASE_URL, JOB_QUERY
+from config import BASE_URL, IT_POSITIONS, JOB_QUERY
 from jobs.boss_company_details_crawler import extract_company_info
 from utils import create_driver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,6 +10,7 @@ import os
 import requests
 
 from utils.browser import wait_for_element
+from utils.random_sleep import random_delay
 
 
 def do_query_by_skills(driver):
@@ -64,7 +65,7 @@ def do_query_by_skills(driver):
                     raise Exception(
                         "Failed to load query results after multiple attempts")
                 driver.refresh()
-                time.sleep(2)
+                random_delay(3, 8)
 
     except Exception as e:
         print(
@@ -94,7 +95,7 @@ def extract_single_job_info(driver, job_card, index):
             "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
             job_title_element
         )
-        time.sleep(1)
+        random_delay(1, 3)
 
         # Click on job title element
         driver.execute_script("arguments[0].click();", job_title_element)
@@ -102,7 +103,7 @@ def extract_single_job_info(driver, job_card, index):
         # Wait for new tab and switch to it
         WebDriverWait(driver, 30).until(lambda d: len(d.window_handles) > 1)
         driver.switch_to.window(driver.window_handles[-1])
-        time.sleep(2)
+        random_delay(2, 5)
         # Add URL verification
         current_url = driver.current_url
         print(f"Navigated to: {current_url}")
@@ -200,62 +201,76 @@ def process_first_job(driver, job_cards):
         project_root = os.path.dirname(current_dir)
         csv_file_path = os.path.join(project_root, 'data', "job_details.csv")
 
-        max_pages = 10  # Maximum number of pages to process
+        max_pages = 10  # Maximum number of pages to process per position
         jobs_per_page = 30  # Number of jobs per page
-        current_page = 1
+        max_positions = len(IT_POSITIONS)
 
-        while current_page <= max_pages:
-            print(f"\nProcessing Page {current_page}")
+        # Iterate through each position
+        for position_index in range(max_positions):
+            current_page = 1  # Reset page counter for each position
+            # Get current position code
+            current_position = IT_POSITIONS[position_index]
 
-            # Construct the URL for the current page
-            page_url = f"{BASE_URL}{JOB_QUERY}&page={current_page}"
-            print("New page arrived ==>>", page_url)
-            driver.get(page_url)
+            print(
+                f"\nProcessing position {position_index + 1}/{max_positions}: {current_position}")
 
-            # Wait for job cards to load on the new page
-            try:
-                # Wait for job list container
-                WebDriverWait(driver, 20).until(
-                    EC.presence_of_element_located(
-                        (By.XPATH, "//ul[contains(@class, 'job-list-box')]")
+            while current_page <= max_pages:
+                print(f"\nProcessing Page {current_page}")
+
+                # Construct the URL for the current position and page
+                page_url = f"{BASE_URL}{JOB_QUERY}&position={current_position}&page={current_page}"
+                print("New page URL ==>>", page_url)
+                driver.get(page_url)
+
+                try:
+                    # Wait for job list container
+                    WebDriverWait(driver, 20).until(
+                        EC.presence_of_element_located((
+                            By.XPATH, "//ul[contains(@class, 'job-list-box')]"
+                        ))
                     )
-                )
 
-                # Get job cards for current page
-                job_cards = WebDriverWait(driver, 20).until(
-                    EC.presence_of_all_elements_located(
-                        (By.XPATH,
-                         ".//li[contains(@class, 'job-card-wrapper')]")
+                    # Get job cards for current page
+                    job_cards = WebDriverWait(driver, 20).until(
+                        EC.presence_of_all_elements_located((
+                            By.XPATH, ".//li[contains(@class, 'job-card-wrapper')]"
+                        ))
                     )
-                )
 
-                if len(job_cards) == 0:
-                    print(f"No jobs found on page {current_page}")
-                    break
-
-                # Process each job card on the current page
-                for index in range(min(jobs_per_page, len(job_cards))):
-                    try:
+                    if len(job_cards) == 0:
                         print(
-                            f"Processing job {index + 1} on page {current_page}")
-                        job_data = extract_single_job_info(
-                            driver, job_cards[index],
-                            index=((current_page - 1) * jobs_per_page) + index
-                        )
-                        save_job_to_csv(job_data, csv_file_path)
-                        print(f"Successfully saved job {index + 1}")
-                    except Exception as e:
-                        print(f"Error processing job {index + 1}: {str(e)}")
-                        continue
+                            f"No jobs found on page {current_page} for position {current_position}")
+                        break  # Move to next position if no jobs found
 
-                current_page += 1
-                time.sleep(2)  # Add delay between pages
+                    # Process each job card on the current page
+                    for index in range(min(jobs_per_page, len(job_cards))):
+                        try:
+                            print(
+                                f"Processing job {index + 1} on page {current_page}")
+                            job_data = extract_single_job_info(
+                                driver,
+                                job_cards[index],
+                                index=((current_page - 1) *
+                                       jobs_per_page) + index
+                            )
+                            save_job_to_csv(job_data, csv_file_path)
+                            print(f"Successfully saved job {index + 1}")
+                        except Exception as e:
+                            print(
+                                f"Error processing job {index + 1}: {str(e)}")
+                            continue
 
-            except Exception as e:
-                print(f"Error loading page {current_page}: {str(e)}")
-                break
+                    current_page += 1
+                    random_delay(3, 7)  # Add delay between pages
 
-        print(f"Successfully processed {current_page - 1} pages")
+                except Exception as e:
+                    print(
+                        f"Error loading page {current_page} for position {current_position}: {str(e)}")
+                    break  # Move to next position if error occurs
+
+            print(
+                f"Successfully processed {current_page - 1} pages for position {current_position}")
+            random_delay(3, 9)  # Delay between positions
 
     except Exception as e:
         print(f"Error in process_first_job: {str(e)}")

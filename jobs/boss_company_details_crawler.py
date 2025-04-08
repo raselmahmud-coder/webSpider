@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 
 from config import BASE_URL
+from utils import random_delay
 
 
 def extract_company_details(driver):
@@ -197,7 +198,7 @@ def extract_company_info(driver, index):
         print("Waiting for page loading...")
     except Exception as e:
         print(f"Error in switch in the new tab: {str(e)}")
-        time.sleep(2)
+        random_delay(2, 8)
 
     try:
         # Wait for the page unfold/expand to find the "more info" label about business information section
@@ -209,7 +210,7 @@ def extract_company_info(driver, index):
 
         # Click the label to expand the unfold section
         more_info_label.click()
-        time.sleep(2)
+        random_delay(2, 7)
 
         # Wait for the business info fold section to be visible
         WebDriverWait(driver, 10).until(
