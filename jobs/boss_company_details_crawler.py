@@ -1,3 +1,4 @@
+from selenium.common.exceptions import TimeoutException  # Add this import at the top
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -10,7 +11,85 @@ from config import BASE_URL
 from utils import random_delay
 
 
-def extract_company_details(driver):
+def extract_company_primary_info(driver, company_short_name):
+    """Extract primary company info from the info-primary div"""
+    primary_info = {
+        'company_logo': '',
+        'company_short_name': '',
+        'employee_count': '',
+        'company_category': '',
+        'business_category': ''
+    }
+
+    try:
+        # Wait for the primary info section to load
+        primary_div = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "info-primary"))
+        )
+
+        # Extract logo URL
+        logo_img = primary_div.find_element(By.TAG_NAME, "img")
+        primary_info['company_logo'] = logo_img.get_attribute("src")
+        primary_info['company_short_name'] = company_short_name
+
+        print('So far what is primary comp info', primary_info)
+
+        # Use JavaScript to extract the primary info (company category, employee count, business category)
+        primary_info["company_category"], primary_info["employee_count"], primary_info["business_category"] = driver.execute_script("""
+            var element = document.querySelector('.info p');
+            var textContent = element ? element.textContent.split('·') : [];
+            
+            return [
+                textContent.length > 0 ? textContent[0].trim() : '',  // company_category
+                textContent.length > 1 ? textContent[1].trim() : '',  // employee_count
+                element.querySelector('a') ? element.querySelector('a').textContent.trim() : ''  // business_category
+            ];
+        """)
+
+    except Exception as e:
+        print(f"Error extracting primary company info: {str(e)}")
+
+    return primary_info
+
+
+def extract_company_description(driver):
+    """Extract company description from the fold-text or job-sec-text element"""
+    try:
+        # Wait for the parent container to be visible
+        parent_div = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//div[contains(@class, 'company-info-box')]")
+            )
+        )
+
+        # Try to find the description element with either 'fold-text' or 'job-sec-text' class
+        description_element = None
+        try:
+            description_element = parent_div.find_element(
+                By.CLASS_NAME, 'fold-text')
+        except:
+            pass  # If 'fold-text' not found, try 'job-sec-text'
+
+        if not description_element:
+            try:
+                description_element = parent_div.find_element(
+                    By.CLASS_NAME, 'job-sec-text')
+            except Exception as e:
+                print(f"Error finding description element: {str(e)}")
+                return ""
+
+        # Extract and clean up the description text
+        company_description = description_element.text.strip() if description_element else ""
+
+        print("Company description info box loaded", company_description)
+        return ' '.join(company_description.split())
+
+    except Exception as e:
+        print(f"Error extracting company description: {str(e)}")
+        return ""
+
+
+def extract_company_business_details(driver):
     """Extract detailed company information from the business details section."""
     company_details = {}
     try:
@@ -21,7 +100,7 @@ def extract_company_details(driver):
 
         # Dictionary mapping Chinese labels to English keys
         label_mapping = {
-            "企业名称": "company_name",
+            "企业名称": "company_full_name",
             "法定代表人": "legal_representative",
             "成立时间": "establishment_date",
             "企业类型": "company_type",
@@ -34,13 +113,12 @@ def extract_company_details(driver):
             "核准日期": "approval_date",
             "曾用名": "former_names",
             "登记机关": "registration_authority",
-            "所属行业": "industry",
             "经营范围": "business_scope"
         }
 
         # Find all list items
         list_items = business_details.find_elements(By.TAG_NAME, "li")
-        print("expected all list items ====> ", list_items)
+        print("expected all list company's information ====> ", len(list_items))
 
         for item in list_items:
             try:
@@ -67,8 +145,30 @@ def extract_company_details(driver):
         return company_details
 
 
+def extract_company_brands(driver):
+    """Extract company brand labels from the brand-list div if available"""
+    brands = []
+    try:
+        # Wait for the brand-list element to be present
+        brand_list = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "brand-list"))
+        )
+
+        # Find all brand labels within the div
+        brand_labels = brand_list.find_elements(By.CLASS_NAME, "brand-label")
+
+        # Extract text from each brand label
+        brands = [label.text for label in brand_labels]
+
+    except Exception as e:
+        # If element not found, return empty list (not all companies have brands)
+        print(f"Brand labels not found or error extracting: {str(e)}")
+
+    return brands
+
+
 def extract_company_addresses(driver):
-    """Extract all company addresses from the job location section."""
+    """Extract company address from the job location section."""
     addresses = []
     try:
         # Wait for the job-location container to be present
@@ -76,32 +176,38 @@ def extract_company_addresses(driver):
             EC.presence_of_element_located((By.CLASS_NAME, "job-location"))
         )
 
-        # Find all location items
-        location_items = driver.find_elements(By.CLASS_NAME, "location-item")
+        # Find the location address within the job-location container
+        location_container = driver.find_element(By.CLASS_NAME, "job-location")
 
-        for item in location_items:
-            try:
-                # Extract address text
-                address = item.find_element(
-                    By.CLASS_NAME, "location-address").text
+        # Try to extract the address text
+        try:
+            address = location_container.find_element(
+                By.CLASS_NAME, "location-address").text
+        except Exception as e:
+            print(f"Error extracting address: {str(e)}")
+            address = ""
 
-                # Extract latitude and longitude from data-lat attribute
-                map_container = item.find_element(
-                    By.CLASS_NAME, "map-container")
-                coordinates = map_container.get_attribute("data-lat")
+        # Initialize variables to empty strings for safety
+        coordinates = ""
+        address_id = ""
 
-                # Create address dictionary
-                address_info = {
-                    "address": address,
-                    "coordinates": coordinates,
-                    "address_id": map_container.get_attribute("data-addressid")
-                }
+        # Try to extract latitude and longitude (coordinates) and address_id if available
+        try:
+            map_container = location_container.find_element(
+                By.CLASS_NAME, "map-container")
+            coordinates = map_container.get_attribute("data-lat") or ""
+            address_id = map_container.get_attribute("data-addressid") or ""
+        except Exception as e:
+            print(f"Error extracting coordinates or address_id: {str(e)}")
 
-                addresses.append(address_info)
+        # Create address dictionary
+        address_info = {
+            "address": address if address else '',
+            "coordinates": coordinates,
+            "address_id": address_id
+        }
 
-            except Exception as e:
-                print(f"Error extracting individual address: {str(e)}")
-                continue
+        addresses.append(address_info)
 
         return addresses
 
@@ -111,178 +217,142 @@ def extract_company_addresses(driver):
 
 
 def save_company_to_csv(company_data, company_details, company_addresses, csv_file_path='company_data.csv'):
-    """Save company information to CSV file"""
+    """Save company information to CSV file if any of the extracted data exists."""
+    try:
+        # Flatten company addresses into a single string if they exist
+        formatted_addresses = '; '.join([
+            f"Address: {addr['address']}, Coordinates: {addr['coordinates']}, ID: {addr['address_id']}"
+            for addr in company_addresses
+        ]) if company_addresses else 'N/A'
 
-    # Flatten company addresses into a single string
-    formatted_addresses = '; '.join([
-        f"Address: {addr['address']}, Coordinates: {addr['coordinates']}, ID: {addr['address_id']}"
-        for addr in company_addresses
-    ])
+        # Combine all data into a single dictionary with fallback defaults
+        csv_data = {
+            'company_logo': company_data.get('company_logo', 'N/A'),
+            'company_short_name': company_data.get('company_short_name', 'N/A'),
+            'employee_count': company_data.get('employee_count', 'N/A'),
+            'company_category': company_data.get('company_category', 'N/A'),
+            'business_category': company_data.get('business_category', 'N/A'),
+            'company_full_name': company_data.get('company_full_name', 'N/A'),
+            'company_brands': company_data.get('company_brands', 'N/A'),
+            'company_description': company_data.get('company_description', 'N/A'),
+            # Company details
+            'legal_representative': company_details.get('legal_representative', 'N/A') if company_details else 'N/A',
+            'establishment_date': company_details.get('establishment_date', 'N/A') if company_details else 'N/A',
+            'company_type': company_details.get('company_type', 'N/A') if company_details else 'N/A',
+            'operation_status': company_details.get('operation_status', 'N/A') if company_details else 'N/A',
+            'registered_capital': company_details.get('registered_capital', 'N/A') if company_details else 'N/A',
+            'registered_address': company_details.get('registered_address', 'N/A') if company_details else 'N/A',
+            'business_term': company_details.get('business_term', 'N/A') if company_details else 'N/A',
+            'region': company_details.get('region', 'N/A') if company_details else 'N/A',
+            'social_credit_code': company_details.get('social_credit_code', 'N/A') if company_details else 'N/A',
+            'approval_date': company_details.get('approval_date', 'N/A') if company_details else 'N/A',
+            'former_names': company_details.get('former_names', 'N/A') if company_details else 'N/A',
+            'registration_authority': company_details.get('registration_authority', 'N/A') if company_details else 'N/A',
+            'business_scope': company_details.get('business_scope', 'N/A') if company_details else 'N/A',
+            'company_addresses': formatted_addresses
+        }
 
-    # Combine all data into a single dictionary
-    csv_data = {
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        'company_name': company_data.get('company_name', ''),
-        'company_description': company_data.get('company_description', ''),
-        # Company details
-        'legal_representative': company_details.get('legal_representative', ''),
-        'establishment_date': company_details.get('establishment_date', ''),
-        'company_type': company_details.get('company_type', ''),
-        'operation_status': company_details.get('operation_status', ''),
-        'registered_capital': company_details.get('registered_capital', ''),
-        'registered_address': company_details.get('registered_address', ''),
-        'business_term': company_details.get('business_term', ''),
-        'region': company_details.get('region', ''),
-        'social_credit_code': company_details.get('social_credit_code', ''),
-        'approval_date': company_details.get('approval_date', ''),
-        'former_names': company_details.get('former_names', ''),
-        'registration_authority': company_details.get('registration_authority', ''),
-        'industry': company_details.get('industry', ''),
-        'business_scope': company_details.get('business_scope', ''),
-        'company_addresses': formatted_addresses
-    }
-    # Set up CSV file path
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(current_dir)
-    csv_file_path = os.path.join(project_root, 'data', "company_data.csv")
-    file_exists = os.path.exists(csv_file_path)
+        # Set up CSV file path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_dir)
+        csv_file_path = os.path.join(project_root, 'data', "company_data.csv")
+        file_exists = os.path.exists(csv_file_path)
 
-    with open(csv_file_path, mode='a' if file_exists else 'w',
-              newline='', encoding='utf-8-sig') as file:
-        writer = csv.DictWriter(file, fieldnames=csv_data.keys())
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow(csv_data)
+        # Write data to CSV
+        with open(csv_file_path, mode='a' if file_exists else 'w', newline='', encoding='utf-8-sig') as file:
+            writer = csv.DictWriter(file, fieldnames=csv_data.keys())
+            if not file_exists:
+                writer.writeheader()  # Write header if the file does not exist
+            writer.writerow(csv_data)
+
+        print("Company data saved to CSV successfully!")
+
+    except Exception as e:
+        print(f"Error saving company details to CSV: {str(e)}")
 
 
-def extract_company_info(driver, index):
+def extract_company_details_info(driver, company_short_name, index):
     """Extract company information from the company details page."""
+    new_tab_opened = False  # Track tab state
     try:
-        # Wait for the element to be present and clickable
-        a_element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 "//a[@ka='job-cominfo' and contains(@class, 'look-all')]")
-            )
-        )
+        company_data = {}
+        company_details = {}  # Ensure initialization
+        company_addresses = []
+        primary_info = {}  # Initialize primary_info
 
-        # Extract the href attribute
-        company_url = a_element.get_attribute("href")
-        # company_url = company_uri
-        print("Extracted company URL:", company_url)
-
-        # Open the company details page in a new tab
-        driver.execute_script("window.open(arguments[0]);", company_url)
-    except Exception as e:
-        print(f"Error extracting a element in company URL: {str(e)}")
-        print("Skipping company information extraction for this job...")
-        # Return early to skip the rest of the company info extraction
-        return {
-            'company_name': 'N/A',
-            'company_description': 'N/A',
-            'company_details': {},
-            'company_addresses': []
-        }
-
-    try:
-        # Switch to the new tab
-        WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > 1)
-        driver.switch_to.window(driver.window_handles[-1])
-        print("It's switch in the new tab")
-
-        # Wait for the page to load
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH, "//div[contains(@class, 'company-info')]"))
-        )
-        print("Waiting for page loading...")
-    except Exception as e:
-        print(f"Error in switch in the new tab: {str(e)}")
-        random_delay(2, 8)
-
-    try:
-        # Wait for the page unfold/expand to find the "more info" label about business information section
-        more_info_label = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH, "//div[contains(@class, 'business-detail')]//label[@ka='company_full_info']"))
-        )
-        print("For unfold section waiting for page loading...")
-
-        # Click the label to expand the unfold section
-        more_info_label.click()
-        random_delay(2, 7)
-
-        # Wait for the business info fold section to be visible
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH, "//div[contains(@class, 'company-info-box')]"))
-        )
-        print("Waiting finished soon enter into try block...")
-
-    except Exception as e:
-        print(f"Error in unfold section: {str(e)}")
-
-    # Extract company information (adjust the XPath as needed)
-    try:
-        company_name = driver.find_element(
-            By.XPATH, "//h1[contains(@class, 'name')]").text
-        description_element = driver.find_elements(
-            By.XPATH, "//div[contains(@class, 'text fold-text')]")
-
-        # Extract text if element was found
-        if description_element:
-            company_description = description_element[0].text
-        else:
-            company_description = "No description available"
-
-        # Print the extracted company information
-        print(f"Company Name: {company_name}")
-        print(f"Company Description: {company_description}")
-
-    except Exception as e:
-        print(f"Error extracting company description: {str(e)}")
-
-    try:
-        # Collect company basic info
-        company_data = {
-            'company_name': company_name,
-            'company_description': company_description
-        }
-        # Extract detailed company information
-        company_details = extract_company_details(driver)
-
-        # Print the extracted company details
-        print("\nDetailed Company Information:")
-        for key, value in company_details.items():
-            print(f"{key}: {value}")
-    except Exception as e:
-        print(f"Error extracting company_details: {str(e)}")
-
-    try:
-        # Extract company addresses
+        # Basic info extraction (always available)
+        company_data['company_description'] = extract_company_description(
+            driver)
         company_addresses = extract_company_addresses(driver)
+        print("\nCompany Addresses:", company_addresses)
 
-        # Print the extracted addresses
-        print("\nCompany Addresses:")
-        for idx, addr in enumerate(company_addresses, 1):
-            print(f"Address {idx}:")
-            print(f"  Location: {addr['address']}")
-            print(f"  Coordinates: {addr['coordinates']}")
-            print(f"  Address ID: {addr['address_id']}")
+        # Attempt to find company details link
+        try:
+            a_element = WebDriverWait(driver, 3).until(  # Reduced timeout
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     "//a[@ka='job-cominfo' and contains(@class, 'look-all')]")
+                )
+            )
+            company_url = a_element.get_attribute("href")
+            print("Company details URL found:", company_url)
+        except TimeoutException:
+            print("Company details link not found - skipping extended details")
+            company_url = None
+
+        # Process company details page only if URL exists
+        if company_url:
+            # Open and switch to new tab
+            driver.execute_script("window.open(arguments[0]);", company_url)
+            WebDriverWait(driver, 10).until(
+                lambda d: len(d.window_handles) > 1)
+            driver.switch_to.window(driver.window_handles[-1])
+            new_tab_opened = True
+            print("Switched to company details tab")
+
+            # Extract data from details page
+            primary_info = extract_company_primary_info(
+                driver, company_short_name)
+            company_data.update(primary_info)
+
+            # Extract brands
+            company_brands = extract_company_brands(driver)
+            company_data['company_brands'] = '; '.join(
+                company_brands) if company_brands else 'N/A'
+
+            # Try to expand business details
+            try:
+                more_info_label = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable(
+                        (By.XPATH, "//label[@ka='company_full_info']")
+                    )
+                )
+                more_info_label.click()
+                print("Expanded business details section")
+                random_delay(2, 3)
+            except TimeoutException:
+                print("Business details expansion not available")
+
+            # Get business details
+            company_details = extract_company_business_details(driver)
+
+        # If no company_url, try extracting basic business details from current page
+        if not company_url:
+            print("Attempting business details extraction from current page")
+            company_details = extract_company_business_details(driver)
+
+        # Merge all data
+        company_data.update(company_details)
+        print(f"Index {index}: Data collection complete")
+
+        # Save results
+        save_company_to_csv(company_data, company_details, company_addresses)
+
     except Exception as e:
-        print(f"Error extracting company's address: {str(e)}")
-
-    try:
-        # Save all collected data to CSV
-        save_company_to_csv(
-            company_data, company_details, company_addresses)
-
-        print("Company data has been saved to CSV successfully!")
-
-    except Exception as e:
-        print(f"Error in save company to csv: {str(e)}")
-
+        print(f"Critical error in extraction: {str(e)}")
     finally:
-        # Close the company details tab and switch back to the main window
-        driver.close()
-        driver.switch_to.window(driver.window_handles[-1])
+        # Clean up tabs
+        if new_tab_opened:
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+            print("Returned to main window")

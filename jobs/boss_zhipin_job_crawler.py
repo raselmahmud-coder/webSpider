@@ -1,7 +1,6 @@
 import time
 from config import BASE_URL, IT_POSITIONS, JOB_QUERY
-from jobs.boss_company_details_crawler import extract_company_info
-from utils import create_driver
+from jobs.boss_company_details_crawler import extract_company_details_info
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -13,10 +12,17 @@ from utils.browser import wait_for_element
 from utils.random_sleep import random_delay
 
 
-def do_query_by_skills(driver):
+def do_query_by_skills(driver, filter_query):
+    """ do_query_by_skills function for click and wait for loading first page and confirm the total job list length """
     try:
-        job_query = BASE_URL + JOB_QUERY
-        print("job hello", job_query)
+        # Type of position i.e., full-time, part-time
+        # Type of experience i.e., Students in school/在校生, Recent graduate/应届生, Experience is not limited/经验不限, Within one year/1年以内, 1-3 years/1-3年, 3-5 years/3-5年, 5-10 years/5-10年, More than 10 years/10年以上
+        type_of_position = {"full_time": "1901",
+                            "part_time": "1903"}
+        # filter_query = type_of_position['full_time']
+        type_of_experience = [108, 102, 101, 107, 103, 104, 105, 106]
+        job_query = f"{BASE_URL}{JOB_QUERY}&position={IT_POSITIONS[0]}&page={1}&jobType={type_of_position['full_time']}&experience={type_of_experience[2]}"
+        print("Full Query looks like ==>>", job_query)
         driver.get(job_query)
 
         # Wait for query results to load with retry mechanism
@@ -72,16 +78,51 @@ def do_query_by_skills(driver):
             f"Reason for failed=> {str(e)}")
 
 
-""" New function for click and wait for loading a single job in new tab then extract information about the job and HR
-"""
+def save_job_to_csv(job_data, csv_file_path):
+    """Save job data to CSV file"""
+    try:
+        file_exists = os.path.exists(csv_file_path)
+        fieldnames = [
+            'company_short_name',
+            'job_title', 'salary', 'city', 'experience', 'degree',
+            'skills', 'job_description', 'job_perks', 'hr_name',
+            'hr_designation', 'hr_pic_path'
+        ]
+
+        with open(csv_file_path, mode='a' if file_exists else 'w',
+                  newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            if not file_exists:
+                writer.writeheader()
+            # Convert list to string for CSV
+            if 'job_perks' in job_data and isinstance(job_data['job_perks'], list):
+                job_data['job_perks'] = ', '.join(job_data['job_perks'])
+            writer.writerow(job_data)
+
+    except Exception as e:
+        print(f"csv file error: {str(e)}")
 
 
 def extract_single_job_info(driver, job_card, index):
-    """Extract information from a single job card"""
+    """ extract_single_job_info() function for click and wait for loading a single job in new tab then extract information about the job details HR details then call and wait for company details information page """
+    # Set up CSV file path
     try:
+        # Extract job data
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_dir)
+        csv_file_path = os.path.join(project_root, 'data', "job_details.csv")
         job_title_element = job_card.find_element(
             By.XPATH, ".//div[contains(@class, 'job-title')]")
-        print("single job ==========>", job_title_element.text)
+        job_company_element = job_card.find_element(
+            By.XPATH, ".//h3[contains(@class, 'company-name')]")
+        global prep_job_dic
+        prep_job_dic = {
+            'company_short_name': job_company_element.text,
+            'job_perks': []
+
+        }
+        print("clickable job target company name ===>>>",
+              job_company_element.text)  # here is error in some job card
         # Set up data directories
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(current_dir)
@@ -109,6 +150,8 @@ def extract_single_job_info(driver, job_card, index):
         print(f"Navigated to: {current_url}")
 
         # Dictionary of elements to extract
+        # job_perks
+
         elements_to_extract = {
             'job_title': "//h1",
             'salary': "//span[contains(@class, 'salary')]",
@@ -119,25 +162,38 @@ def extract_single_job_info(driver, job_card, index):
             'job_description': "//div[contains(@class, 'job-sec-text')]"
         }
 
-        # Extract job data
-        job_data = {}
         for key, xpath in elements_to_extract.items():
-            element = WebDriverWait(driver, 30).until(
-                EC.visibility_of_element_located((By.XPATH, xpath))
-            )
-            job_data[key] = element.text.strip()
-            if not job_data[key]:
-                raise Exception(f"Empty value for {key}")
+            try:
+                element = WebDriverWait(driver, 10).until(
+                    EC.visibility_of_element_located((By.XPATH, xpath))
+                )
 
-        print("hello job new dic", job_data)
+                prep_job_dic[key] = element.text.strip()
+                if not prep_job_dic[key]:
+                    prep_job_dic[key] = "N/A"
+
+            except Exception as e:
+                print(f"elements_to_extract {key} not found: {str(e)}")
+
+        try:
+            # Use find_elements to check existence without waiting
+            perks_container = driver.find_elements(
+                By.XPATH, "//div[contains(@class, 'job-tags')]")
+            if perks_container:
+                perks = perks_container[0].find_elements(By.TAG_NAME, 'span')
+                prep_job_dic['job_perks'] = [perk.text.strip()
+                                             for perk in perks] if perks else []
+
+        except Exception as e:
+            print(f"Error handling job perks: {str(e)}")
 
         # Extract HR information
-        job_data['hr_name'] = driver.execute_script("""
+        prep_job_dic['hr_name'] = driver.execute_script("""
             var element = document.querySelector('h2.name');
             return element.childNodes[0].nodeValue.trim();
         """)
 
-        job_data['hr_designation'] = driver.execute_script("""
+        prep_job_dic['hr_designation'] = driver.execute_script("""
             var element = document.querySelector('.boss-info-attr');
             return element.textContent.split('·').pop().trim();
         """)
@@ -158,16 +214,23 @@ def extract_single_job_info(driver, job_card, index):
                 with open(hr_pic_path, "wb") as img_file:
                     for chunk in response.iter_content(1024):
                         img_file.write(chunk)
-                job_data['hr_pic_path'] = hr_pic_path
+                prep_job_dic['hr_pic_path'] = hr_pic_path
             else:
-                job_data['hr_pic_path'] = "N/A"
+                prep_job_dic['hr_pic_path'] = "N/A"
         except Exception as e:
             print(f"Failed to save HR image: {str(e)}")
-            job_data['hr_pic_path'] = "N/A"
+            prep_job_dic['hr_pic_path'] = "N/A"
 
-        print("final version ==========*******=========> ", job_data)
-        extract_company_info(driver, index)
-        return job_data
+        print("final version of single job ==========*******=========> ", prep_job_dic)
+        save_job_to_csv(prep_job_dic, csv_file_path)
+        print(f"Successfully saved job {index + 1}")
+        print("Get company short name", prep_job_dic['company_short_name'])
+        extract_company_details_info(
+            driver, company_short_name=prep_job_dic['company_short_name'], index=index)
+        # return prep_job_dic
+
+    except Exception as e:
+        print(f"Error in single job processing: {str(e)}")
 
     finally:
         # Close the job detail tab and switch back to main window
@@ -175,34 +238,18 @@ def extract_single_job_info(driver, job_card, index):
         driver.switch_to.window(driver.window_handles[0])
 
 
-def save_job_to_csv(job_data, csv_file_path):
-    """Save job data to CSV file"""
-    file_exists = os.path.exists(csv_file_path)
-    fieldnames = [
-        'job_title', 'salary', 'city', 'experience', 'degree',
-        'skills', 'job_description', 'hr_name',
-        'hr_designation', 'hr_pic_path'
-    ]
-
-    with open(csv_file_path, mode='a' if file_exists else 'w',
-              newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow(job_data)
-
-
 # Main function to process the first job card
-def process_first_job(driver, job_cards):
+def process_first_job(driver):
     """Process jobs across multiple pages (up to 10 pages)"""
     try:
-        # Set up CSV file path
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        project_root = os.path.dirname(current_dir)
-        csv_file_path = os.path.join(project_root, 'data', "job_details.csv")
-
+        job_cards = do_query_by_skills(driver, filter_query="?")
+        print("skill query return total job cards ===*****====", len(job_cards))
+    except Exception as e:
+        print(
+            f"Error in do query: {str(e)}")
+    try:
         max_pages = 10  # Maximum number of pages to process per position
-        jobs_per_page = 30  # Number of jobs per page
+        max_jobs_per_page = 30  # Number of jobs per page
         max_positions = len(IT_POSITIONS)
 
         # Iterate through each position
@@ -212,53 +259,28 @@ def process_first_job(driver, job_cards):
             current_position = IT_POSITIONS[position_index]
 
             print(
-                f"\nProcessing position {position_index + 1}/{max_positions}: {current_position}")
+                f"\nProcessing position ... {position_index + 1}/{max_positions}: current position is => {current_position}")
 
             while current_page <= max_pages:
-                print(f"\nProcessing Page {current_page}")
-
-                # Construct the URL for the current position and page
-                page_url = f"{BASE_URL}{JOB_QUERY}&position={current_position}&page={current_page}"
-                print("New page URL ==>>", page_url)
-                driver.get(page_url)
+                print(f"\nProcessing current Page ==** {current_page}")
 
                 try:
-                    # Wait for job list container
-                    WebDriverWait(driver, 20).until(
-                        EC.presence_of_element_located((
-                            By.XPATH, "//ul[contains(@class, 'job-list-box')]"
-                        ))
-                    )
-
-                    # Get job cards for current page
-                    job_cards = WebDriverWait(driver, 20).until(
-                        EC.presence_of_all_elements_located((
-                            By.XPATH, ".//li[contains(@class, 'job-card-wrapper')]"
-                        ))
-                    )
-
-                    if len(job_cards) == 0:
-                        print(
-                            f"No jobs found on page {current_page} for position {current_position}")
-                        break  # Move to next position if no jobs found
-
                     # Process each job card on the current page
-                    for index in range(min(jobs_per_page, len(job_cards))):
+                    for index in range(len(job_cards)):
                         try:
                             print(
-                                f"Processing job {index + 1} on page {current_page}")
-                            job_data = extract_single_job_info(
+                                f"Start Processing job no. => {index + 1} on current page => {current_page}")
+                            extract_single_job_info(
                                 driver,
                                 job_cards[index],
                                 index=((current_page - 1) *
-                                       jobs_per_page) + index
+                                       max_jobs_per_page) + index
                             )
-                            save_job_to_csv(job_data, csv_file_path)
-                            print(f"Successfully saved job {index + 1}")
+
                         except Exception as e:
                             print(
                                 f"Error processing job {index + 1}: {str(e)}")
-                            continue
+                            break
 
                     current_page += 1
                     random_delay(3, 7)  # Add delay between pages
