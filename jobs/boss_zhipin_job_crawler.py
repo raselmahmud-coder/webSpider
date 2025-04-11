@@ -4,6 +4,9 @@ from jobs.boss_company_details_crawler import extract_company_details_info
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import InvalidSessionIdException, TimeoutException, WebDriverException
+
+
 import csv
 import os
 import requests
@@ -85,7 +88,7 @@ def save_job_to_csv(job_data, csv_file_path):
         fieldnames = [
             'company_short_name',
             'job_title', 'salary', 'city', 'experience', 'degree',
-            'skills', 'job_description', 'job_perks', 'hr_name',
+            'skills', 'job_description', 'hr_name',
             'hr_designation', 'hr_pic_path'
         ]
 
@@ -94,35 +97,88 @@ def save_job_to_csv(job_data, csv_file_path):
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             if not file_exists:
                 writer.writeheader()
-            # Convert list to string for CSV
-            if 'job_perks' in job_data and isinstance(job_data['job_perks'], list):
-                job_data['job_perks'] = ', '.join(job_data['job_perks'])
             writer.writerow(job_data)
 
     except Exception as e:
         print(f"csv file error: {str(e)}")
 
 
+def extract_company_info_from_job_card(driver, job_card):
+    """Extract company information from the job card using XPath."""
+    company_info = {}
+
+    try:
+        # Wait for the job card to be fully loaded (if necessary)
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, ".//div[contains(@class, 'company-logo')]"))
+        )
+
+        # Extract company logo URL
+        logo_element = job_card.find_element(
+            By.XPATH, ".//div[contains(@class, 'company-logo')]//img")
+        company_info['company_logo'] = logo_element.get_attribute(
+            "src") if logo_element else "N/A"
+
+        # Extract company name and company page URL
+        company_name_element = job_card.find_element(
+            By.XPATH, ".//h3[contains(@class, 'company-name')]//a")
+        company_info['company_short_name'] = company_name_element.text if company_name_element else "N/A"
+        company_info['company_url'] = company_name_element.get_attribute(
+            "href") if company_name_element else "N/A"
+
+        # Extract company tags (e.g., "环保", "B轮", "500-999人")
+        tags_elements = job_card.find_elements(
+            By.XPATH, ".//ul[contains(@class, 'company-tag-list')]//li")
+
+        # Initialize company category, business category, and employee count as "N/A"
+        company_info['company_category'] = "N/A"
+        company_info['business_category'] = "N/A"
+        company_info['employee_count'] = "N/A"
+
+        if tags_elements:
+            if len(tags_elements) >= 3:
+                company_info['company_category'] = tags_elements[0].text if tags_elements[0].text else "N/A"
+                company_info['business_category'] = tags_elements[1].text if tags_elements[1].text else "N/A"
+                company_info['employee_count'] = tags_elements[2].text if tags_elements[2].text else "N/A"
+            elif len(tags_elements) == 2:
+                company_info['company_category'] = tags_elements[0].text if tags_elements[0].text else "N/A"
+                company_info['employee_count'] = tags_elements[1].text if tags_elements[1].text else "N/A"
+            elif len(tags_elements) == 1:
+                company_info['company_category'] = tags_elements[0].text if tags_elements[0].text else "N/A"
+
+        print(f"Company info extracted: {company_info}")
+        return company_info
+
+    except Exception as e:
+        print(f"Error extracting company information: {str(e)}")
+        return {}
+
+
 def extract_single_job_info(driver, job_card, index):
     """ extract_single_job_info() function for click and wait for loading a single job in new tab then extract information about the job details HR details then call and wait for company details information page """
     # Set up CSV file path
     try:
+        get_right_side_info = extract_company_info_from_job_card(
+            driver, job_card)
+        print("get_right_side_info company short name",
+              get_right_side_info['company_short_name'])
+        # Verify that the session is valid before proceeding
+        if not driver.session_id:
+            raise InvalidSessionIdException(
+                "Session has been closed or is invalid.")
         # Extract job data
+        print("Inside try block of single job...", job_card)
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(current_dir)
         csv_file_path = os.path.join(project_root, 'data', "job_details.csv")
-        job_title_element = job_card.find_element(
-            By.XPATH, ".//div[contains(@class, 'job-title')]")
-        job_company_element = job_card.find_element(
-            By.XPATH, ".//h3[contains(@class, 'company-name')]")
+        print("Before job company element...")
+
         global prep_job_dic
         prep_job_dic = {
-            'company_short_name': job_company_element.text,
-            'job_perks': []
-
+            'company_short_name': get_right_side_info['company_short_name'] if get_right_side_info['company_short_name'] else "N/A",
         }
-        print("clickable job target company name ===>>>",
-              job_company_element.text)  # here is error in some job card
+
         # Set up data directories
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(current_dir)
@@ -130,27 +186,44 @@ def extract_single_job_info(driver, job_card, index):
         IMAGE_DIR = os.path.join(DATA_DIR, 'images', 'hr_images')
         os.makedirs(DATA_DIR, exist_ok=True)
         os.makedirs(IMAGE_DIR, exist_ok=True)
+        try:
+            job_title_element = WebDriverWait(job_card, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, ".//div[contains(@class, 'job-title')]"))
+            )
 
-        # Scroll job card into view
-        driver.execute_script(
-            "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
-            job_title_element
-        )
-        random_delay(1, 3)
+            if job_title_element:
 
-        # Click on job title element
-        driver.execute_script("arguments[0].click();", job_title_element)
+                # Scroll job card into view
+                driver.execute_script(
+                    "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
+                    job_title_element
+                )
+                random_delay(1, 5)
+
+                # Click on job title element
+                driver.execute_script(
+                    "arguments[0].click();", job_title_element)
+            else:
+                print("target company name not found!")
+        except TimeoutException as e:
+            print(
+                f"Timeout: Company name element not found in job card {index} within the given time.")
+            return False  # Handle the case if the element isn't found
 
         # Wait for new tab and switch to it
         WebDriverWait(driver, 30).until(lambda d: len(d.window_handles) > 1)
+
         driver.switch_to.window(driver.window_handles[-1])
+
         random_delay(2, 5)
+
         # Add URL verification
         current_url = driver.current_url
+
         print(f"Navigated to: {current_url}")
 
         # Dictionary of elements to extract
-        # job_perks
 
         elements_to_extract = {
             'job_title': "//h1",
@@ -174,18 +247,6 @@ def extract_single_job_info(driver, job_card, index):
 
             except Exception as e:
                 print(f"elements_to_extract {key} not found: {str(e)}")
-
-        try:
-            # Use find_elements to check existence without waiting
-            perks_container = driver.find_elements(
-                By.XPATH, "//div[contains(@class, 'job-tags')]")
-            if perks_container:
-                perks = perks_container[0].find_elements(By.TAG_NAME, 'span')
-                prep_job_dic['job_perks'] = [perk.text.strip()
-                                             for perk in perks] if perks else []
-
-        except Exception as e:
-            print(f"Error handling job perks: {str(e)}")
 
         # Extract HR information
         prep_job_dic['hr_name'] = driver.execute_script("""
@@ -222,11 +283,13 @@ def extract_single_job_info(driver, job_card, index):
             prep_job_dic['hr_pic_path'] = "N/A"
 
         print("final version of single job ==========*******=========> ", prep_job_dic)
+
         save_job_to_csv(prep_job_dic, csv_file_path)
+
         print(f"Successfully saved job {index + 1}")
-        print("Get company short name", prep_job_dic['company_short_name'])
+
         extract_company_details_info(
-            driver, company_short_name=prep_job_dic['company_short_name'], index=index)
+            driver, company_right_side_info=get_right_side_info, index=index)
         # return prep_job_dic
 
     except Exception as e:
@@ -262,33 +325,35 @@ def process_first_job(driver):
                 f"\nProcessing position ... {position_index + 1}/{max_positions}: current position is => {current_position}")
 
             while current_page <= max_pages:
-                print(f"\nProcessing current Page ==** {current_page}")
 
-                try:
-                    # Process each job card on the current page
-                    for index in range(len(job_cards)):
-                        try:
-                            print(
-                                f"Start Processing job no. => {index + 1} on current page => {current_page}")
-                            extract_single_job_info(
-                                driver,
-                                job_cards[index],
-                                index=((current_page - 1) *
-                                       max_jobs_per_page) + index
-                            )
+                # Process each job card on the current page
+                for index in range(len(job_cards)):
+                    print(f"\nProcessing current Page ==** indx {index}")
+                    try:
+                        print(
+                            f"\nProcessing current Page ==** len {len(job_cards)}")
+                        print(
+                            f"Start Processing job no. => {index + 1} on current page => {current_page} job card {job_cards[index]}")
+                        extract_single_job_info(
+                            driver,
+                            job_cards[index],
+                            index=((current_page - 1) *
+                                   max_jobs_per_page) + index
+                        )
 
-                        except Exception as e:
-                            print(
-                                f"Error processing job {index + 1}: {str(e)}")
-                            break
+                    except WebDriverException as e:
+                        # Handle cases like "invalid session id"
+                        print(f"Error processing job {index + 1}: {str(e)}")
+                        # You can add logic here to attempt a restart or cleanup
+                        break
 
-                    current_page += 1
-                    random_delay(3, 7)  # Add delay between pages
+                    except InvalidSessionIdException as e:
+                        print(f"Session invalidated: {str(e)}")
+                        # Handle session recovery by restarting driver or session
+                        break
 
-                except Exception as e:
-                    print(
-                        f"Error loading page {current_page} for position {current_position}: {str(e)}")
-                    break  # Move to next position if error occurs
+                current_page += 1
+                random_delay(3, 7)  # Add delay between pages
 
             print(
                 f"Successfully processed {current_page - 1} pages for position {current_position}")

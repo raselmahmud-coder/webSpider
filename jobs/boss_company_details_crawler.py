@@ -11,47 +11,6 @@ from config import BASE_URL
 from utils import random_delay
 
 
-def extract_company_primary_info(driver, company_short_name):
-    """Extract primary company info from the info-primary div"""
-    primary_info = {
-        'company_logo': '',
-        'company_short_name': '',
-        'employee_count': '',
-        'company_category': '',
-        'business_category': ''
-    }
-
-    try:
-        # Wait for the primary info section to load
-        primary_div = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "info-primary"))
-        )
-
-        # Extract logo URL
-        logo_img = primary_div.find_element(By.TAG_NAME, "img")
-        primary_info['company_logo'] = logo_img.get_attribute("src")
-        primary_info['company_short_name'] = company_short_name
-
-        print('So far what is primary comp info', primary_info)
-
-        # Use JavaScript to extract the primary info (company category, employee count, business category)
-        primary_info["company_category"], primary_info["employee_count"], primary_info["business_category"] = driver.execute_script("""
-            var element = document.querySelector('.info p');
-            var textContent = element ? element.textContent.split('·') : [];
-            
-            return [
-                textContent.length > 0 ? textContent[0].trim() : '',  // company_category
-                textContent.length > 1 ? textContent[1].trim() : '',  // employee_count
-                element.querySelector('a') ? element.querySelector('a').textContent.trim() : ''  // business_category
-            ];
-        """)
-
-    except Exception as e:
-        print(f"Error extracting primary company info: {str(e)}")
-
-    return primary_info
-
-
 def extract_company_description(driver):
     """Extract company description from the fold-text or job-sec-text element"""
     try:
@@ -62,31 +21,24 @@ def extract_company_description(driver):
             )
         )
 
-        # Try to find the description element with either 'fold-text' or 'job-sec-text' class
-        description_element = None
+        # Try to find the description element with either 'job-sec-text' or 'fold-text' class
         try:
             description_element = parent_div.find_element(
-                By.CLASS_NAME, 'fold-text')
-        except:
-            pass  # If 'fold-text' not found, try 'job-sec-text'
+                By.XPATH, ".//div[contains(@class, 'job-sec-text') and contains(@class, 'fold-text')]")
+            company_description = description_element.text.strip()
+            cleaned_description = ' '.join(
+                company_description.split()) if company_description else "N/A"
+            print("Company description info box loaded:", cleaned_description)
+            return cleaned_description
 
-        if not description_element:
-            try:
-                description_element = parent_div.find_element(
-                    By.CLASS_NAME, 'job-sec-text')
-            except Exception as e:
-                print(f"Error finding description element: {str(e)}")
-                return ""
-
-        # Extract and clean up the description text
-        company_description = description_element.text.strip() if description_element else ""
-
-        print("Company description info box loaded", company_description)
-        return ' '.join(company_description.split())
+        except Exception as e:
+            # If the description element is not found, return an empty string or "N/A"
+            print(f"Error finding description element: {str(e)}")
+            return "N/A"  # Return "N/A" or "" if description is not found
 
     except Exception as e:
         print(f"Error extracting company description: {str(e)}")
-        return ""
+        return "N/A"  # Return "N/A" if there is an issue with the parent div
 
 
 def extract_company_business_details(driver):
@@ -145,26 +97,44 @@ def extract_company_business_details(driver):
         return company_details
 
 
-def extract_company_brands(driver):
-    """Extract company brand labels from the brand-list div if available"""
-    brands = []
+def extract_company_brand_talent_info(driver):
+    """Extract company information, including talent development and brand list."""
+    company_info = {
+        'talent_development': [],
+        'brand_list': []
+    }
+
     try:
-        # Wait for the brand-list element to be present
-        brand_list = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "brand-list"))
-        )
+        # Extract talent development list
+        try:
+            talent_section = driver.find_element(
+                By.XPATH, "//div[contains(@class, 'company-talents')]//ul[contains(@class, 'company-talents-list')]")
+            talent_development = [
+                li.text for li in talent_section.find_elements(By.TAG_NAME, "li")]
+            company_info['talent_development'] = talent_development if talent_development else [
+            ]
+        except Exception as e:
+            print(
+                f"Talent development list not found or error extracting: {str(e)}")
+            company_info['talent_development'] = []
 
-        # Find all brand labels within the div
-        brand_labels = brand_list.find_elements(By.CLASS_NAME, "brand-label")
+        # Extract brand list
+        try:
+            brand_section = driver.find_element(
+                By.XPATH, "//div[contains(@class, 'brand-list')]")
+            brand_labels = [label.text for label in brand_section.find_elements(
+                By.CLASS_NAME, "brand-label")]
+            company_info['brand_list'] = brand_labels if brand_labels else []
+        except Exception as e:
+            print(f"Brand labels not found or error extracting: {str(e)}")
+            company_info['brand_list'] = []
 
-        # Extract text from each brand label
-        brands = [label.text for label in brand_labels]
+        print(f"Company info extracted: {company_info}")
+        return company_info
 
     except Exception as e:
-        # If element not found, return empty list (not all companies have brands)
-        print(f"Brand labels not found or error extracting: {str(e)}")
-
-    return brands
+        print(f"Error extracting company info: {str(e)}")
+        return company_info
 
 
 def extract_company_addresses(driver):
@@ -176,38 +146,35 @@ def extract_company_addresses(driver):
             EC.presence_of_element_located((By.CLASS_NAME, "job-location"))
         )
 
-        # Find the location address within the job-location container
-        location_container = driver.find_element(By.CLASS_NAME, "job-location")
+        print("waiting for address items")
 
-        # Try to extract the address text
-        try:
-            address = location_container.find_element(
-                By.CLASS_NAME, "location-address").text
-        except Exception as e:
-            print(f"Error extracting address: {str(e)}")
-            address = ""
+        # Find all location items using XPath
+        location_items = driver.find_elements(
+            By.XPATH, "//div[contains(@class, 'job-location')]//div[contains(@class, 'location-address')]")
 
-        # Initialize variables to empty strings for safety
-        coordinates = ""
-        address_id = ""
+        if location_items:
+            for item in location_items:
+                # Extract address text using XPath
+                address = item.text.strip() if item.text else "n/a"
 
-        # Try to extract latitude and longitude (coordinates) and address_id if available
-        try:
-            map_container = location_container.find_element(
-                By.CLASS_NAME, "map-container")
-            coordinates = map_container.get_attribute("data-lat") or ""
-            address_id = map_container.get_attribute("data-addressid") or ""
-        except Exception as e:
-            print(f"Error extracting coordinates or address_id: {str(e)}")
+                # Extract latitude and longitude from data-lat attribute using XPath
+                map_container = item.find_element(
+                    By.XPATH, ".//following-sibling::div[contains(@class, 'job-location-map')]")
+                coordinates = map_container.get_attribute(
+                    "data-lat") if map_container.get_attribute("data-lat") else "n/a"
 
-        # Create address dictionary
-        address_info = {
-            "address": address if address else '',
-            "coordinates": coordinates,
-            "address_id": address_id
-        }
+                # Extract address ID using XPath
+                address_id = map_container.get_attribute(
+                    "data-addressid") if map_container.get_attribute("data-addressid") else "n/a"
 
-        addresses.append(address_info)
+                # Create address dictionary
+                address_info = {
+                    "address": address,
+                    "coordinates": coordinates,
+                    "address_id": address_id
+                }
+
+                addresses.append(address_info)
 
         return addresses
 
@@ -234,6 +201,7 @@ def save_company_to_csv(company_data, company_details, company_addresses, csv_fi
             'business_category': company_data.get('business_category', 'N/A'),
             'company_full_name': company_data.get('company_full_name', 'N/A'),
             'company_brands': company_data.get('company_brands', 'N/A'),
+            'talents_dev': company_data.get('talents_dev', 'N/A'),
             'company_description': company_data.get('company_description', 'N/A'),
             # Company details
             'legal_representative': company_details.get('legal_representative', 'N/A') if company_details else 'N/A',
@@ -271,14 +239,15 @@ def save_company_to_csv(company_data, company_details, company_addresses, csv_fi
         print(f"Error saving company details to CSV: {str(e)}")
 
 
-def extract_company_details_info(driver, company_short_name, index):
+def extract_company_details_info(driver, company_right_side_info, index):
     """Extract company information from the company details page."""
-    new_tab_opened = False  # Track tab state
+
     try:
+        print("get right side info ", company_right_side_info)
         company_data = {}
         company_details = {}  # Ensure initialization
         company_addresses = []
-        primary_info = {}  # Initialize primary_info
+        primary_info = company_right_side_info  # Initialize primary_info
 
         # Basic info extraction (always available)
         company_data['company_description'] = extract_company_description(
@@ -288,7 +257,7 @@ def extract_company_details_info(driver, company_short_name, index):
 
         # Attempt to find company details link
         try:
-            a_element = WebDriverWait(driver, 3).until(  # Reduced timeout
+            a_element = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located(
                     (By.XPATH,
                      "//a[@ka='job-cominfo' and contains(@class, 'look-all')]")
@@ -297,7 +266,7 @@ def extract_company_details_info(driver, company_short_name, index):
             company_url = a_element.get_attribute("href")
             print("Company details URL found:", company_url)
         except TimeoutException:
-            print("Company details link not found - skipping extended details")
+            print("Company details link not found - ignoring to extended details")
             company_url = None
 
         # Process company details page only if URL exists
@@ -307,18 +276,18 @@ def extract_company_details_info(driver, company_short_name, index):
             WebDriverWait(driver, 10).until(
                 lambda d: len(d.window_handles) > 1)
             driver.switch_to.window(driver.window_handles[-1])
-            new_tab_opened = True
             print("Switched to company details tab")
 
-            # Extract data from details page
-            primary_info = extract_company_primary_info(
-                driver, company_short_name)
             company_data.update(primary_info)
 
             # Extract brands
-            company_brands = extract_company_brands(driver)
-            company_data['company_brands'] = '; '.join(
-                company_brands) if company_brands else 'N/A'
+            company_brands_n_talents = extract_company_brand_talent_info(
+                driver)
+            company_data['company_brands'] = company_brands_n_talents['brand_list']
+            company_data['talents_dev'] = company_brands_n_talents['talent_development']
+
+            print("ki ree pai na keno??",
+                  company_brands_n_talents['talent_development'])
 
             # Try to expand business details
             try:
@@ -336,13 +305,9 @@ def extract_company_details_info(driver, company_short_name, index):
             # Get business details
             company_details = extract_company_business_details(driver)
 
-        # If no company_url, try extracting basic business details from current page
-        if not company_url:
-            print("Attempting business details extraction from current page")
-            company_details = extract_company_business_details(driver)
-
         # Merge all data
         company_data.update(company_details)
+
         print(f"Index {index}: Data collection complete")
 
         # Save results
@@ -350,9 +315,15 @@ def extract_company_details_info(driver, company_short_name, index):
 
     except Exception as e:
         print(f"Critical error in extraction: {str(e)}")
+
     finally:
-        # Clean up tabs
-        if new_tab_opened:
-            driver.close()
-            driver.switch_to.window(driver.window_handles[0])
-            print("Returned to main window")
+        # Close the company details tab and switch back to the main window
+        window_handles = driver.window_handles
+        if len(window_handles) > 2:  # Check if there are at least 3 tabs open
+            driver.close()  # Close the 3rd tab
+            # Switch back to the 2nd tab (previous tab)
+            driver.switch_to.window(window_handles[-2])
+            print("Returned to the previous (2nd) tab")
+        else:
+            print("Only 2 tabs open, no need to close the 3rd tab")
+        print("Returned to main window")
