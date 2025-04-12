@@ -7,7 +7,8 @@ from .settings import (
     LOGIN_TIMEOUT,
     COMPANY_DETAILS_URI,
     PAGE_LOAD_TIMEOUT,
-    IT_POSITIONS
+    IT_SKILLS,
+    EXPERIENCE_LEVELS
 )
 
 __all__ = [
@@ -19,5 +20,6 @@ __all__ = [
     'COOKIE_FILE',
     'LOGIN_TIMEOUT',
     'PAGE_LOAD_TIMEOUT',
-    'IT_POSITIONS'
+    'IT_SKILLS',
+    'EXPERIENCE_LEVELS'
 ]
