@@ -1,5 +1,5 @@
 import time
-from config import BASE_URL, IT_SKILLS, JOB_QUERY, EXPERIENCE_LEVELS
+from config import BASE_URL, EXPERIENCE_LEVELS_MAPPING, IT_SKILLS, JOB_QUERY, EXPERIENCE_LEVELS, POSITION_TYPES, POSITION_TYPES_MAPPING
 from jobs.boss_company_details_crawler import extract_company_details_info
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -116,7 +116,7 @@ def save_job_to_csv(job_data, csv_file_path):
             'company_short_name',
             'job_title', 'salary', 'city', 'experience', 'degree',
             'skills', 'job_description', 'hr_name',
-            'hr_designation', 'hr_pic_path', 'skill', 'position', 'experience'
+            'hr_designation', 'hr_pic_path', 'skill_category', 'position_type', 'experience_level'
         ]
 
         with open(csv_file_path, mode='a' if file_exists else 'w',
@@ -308,9 +308,11 @@ def extract_single_job_info(driver, job_card, index, filter_query):
             print(f"Failed to save HR image: {str(e)}")
             prep_job_dic['hr_pic_path'] = "N/A"
 
-        prep_job_dic['skill'] = filter_query['skill']
-        prep_job_dic['position'] = filter_query['position']
-        prep_job_dic['experience'] = filter_query['experience']
+        prep_job_dic['skill_category'] = filter_query['skill']
+        prep_job_dic['position_type'] = POSITION_TYPES_MAPPING[POSITION_TYPES.index(
+            filter_query['position'])]
+        prep_job_dic['experience_level'] = EXPERIENCE_LEVELS_MAPPING[EXPERIENCE_LEVELS.index(
+            filter_query['experience'])]
 
         print("final version of single job ==========*******=========> ", prep_job_dic)
 
@@ -332,88 +334,9 @@ def extract_single_job_info(driver, job_card, index, filter_query):
 
 
 # Main function to process the first job card
-# def process_first_job(driver):
-#     """Process jobs across 84 IT_SKILLS 2 type_of_position and 8 type_of_experience with dynamic pages"""
-
-#     try:
-#         # Type of position i.e., full-time, part-time
-#         # Type of experience i.e., Students in school/在校生, Recent graduate/应届生, Experience is not limited/经验不限, Within one year/1年以内, 1-3 years/1-3年, 3-5 years/3-5年, 5-10 years/5-10年, More than 10 years/10年以上
-#         type_of_position = {"full_time": "1901",
-#                             "part_time": "1903"}
-#         # filter_query = type_of_position['full_time']
-#         type_of_experience = [101, 102, 103, 104, 105, 106, 107, 108]
-#         job_query = f"{BASE_URL}{JOB_QUERY}&position={IT_SKILLS[0]}&jobType={type_of_position['part_time']}&experience={type_of_experience[5]}"
-
-#         result = do_query_by_skills(
-#             driver, filter_query=job_query)  # initial query request
-#         job_cards = result["job_cards"]
-#         total_page = result["total_page"]  # &page={1}
-#         print("skill query return total job cards ===*****====", len(job_cards))
-#         max_pages = total_page  # Maximum page would be dynamic based on query result
-#         max_jobs_per_page = len(job_cards)  # Number of jobs per page
-#         max_positions = len(IT_SKILLS)
-
-#         if len(job_cards) > 0:
-#             # Iterate through each position
-#             for position_index in range(max_positions):
-#                 current_page = 1  # Reset page counter for each position
-#                 # Get current position code
-#                 current_position = IT_SKILLS[position_index]
-
-#                 print(
-#                     f"\nProcessing position ... {position_index + 1}/{max_positions}: current position is => {current_position}")
-
-#                 while current_page <= max_pages:
-
-#                     # Process each job card on the current page
-#                     for index in range(len(job_cards)):
-#                         print(f"\nProcessing current Page ==** indx {index}")
-#                         try:
-#                             print(
-#                                 f"\nProcessing current Page ==** len {len(job_cards)}")
-#                             print(
-#                                 f"Start Processing job no. => {index + 1} on current page => {current_page} job card {job_cards[index]}")
-#                             extract_single_job_info(
-#                                 driver,
-#                                 job_cards[index],
-#                                 index=((current_page - 1) *
-#                                        max_jobs_per_page) + index
-#                             )
-
-#                         except WebDriverException as e:
-#                             # Handle cases like "invalid session id"
-#                             print(
-#                                 f"Error processing job {index + 1}: {str(e)}")
-#                             # You can add logic here to attempt a restart or cleanup
-#                             break
-
-#                         except InvalidSessionIdException as e:
-#                             print(f"Session invalidated: {str(e)}")
-#                             # Handle session recovery by restarting driver or session
-#                             break
-
-#                     current_page += 1
-#                     print("Page updating ... ", current_page)
-#                     random_delay(3, 7)  # Add delay between pages
-
-#                 print(
-#                     f"Successfully processed {current_page - 1} pages for position {current_position}")
-#                 random_delay(3, 9)  # Delay between positions
-
-#         else:
-#             # do new query
-#             result = do_query_by_skills(
-#                 driver, filter_query="?")
-
-#     except Exception as e:
-#         print(f"Error in process_first_job: {str(e)}")
-
 
 def process_first_job(driver):
     """Process jobs across 84 IT_SKILLS, 2 type_of_position, and 8 type_of_experience with dynamic pages"""
-    # IT_SKILLS = IT_SKILLS  # imported 84 skills
-    POSITION_TYPES = ["1901", "1903"]  # Full-time, Part-time
-    # EXPERIENCE_LEVELS = EXPERIENCE_LEVELS
 
     for skill in IT_SKILLS:
         for position in POSITION_TYPES:
