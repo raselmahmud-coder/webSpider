@@ -10,27 +10,27 @@ WebSpider is a sophisticated web scraping and data analysis tool designed to col
 - Function Calling: Makes API calls to external services for additional data enrichment
 
 # Project Structure
-webSpider/
-├── auth/                  # Authentication handling
-│   └── cookie_manager.py  # Manages browser cookies
-├── config/                # Configuration settings
-│   └── settings.py        # Project settings
-├── data/                  # Stored data
-│   ├── company_data.csv   # Company information
-│   ├── job_details.csv    # Job listings data
-│   └── images/            # Stored images
-├── drivers/               # Web drivers
-│   └── chromedriver-win64/# Chrome driver for Selenium
-├── function_calling/      # External API interaction
-├── jobs/                  # Job data processing modules
-├── search_engine/         # Search functionality
-├── utils/                 # Utility functions
-├── vspider/               # Core spider functionality
-├── main_search_engine.py  # Search engine implementation
-├── main.py                # Main entry point
-├── merge_csv.py           # CSV data processing
-├── userLogin.py           # User authentication
-└── requirements.txt       # Project dependencies
+
+📦webSpider/
+┣📂auth/                  # Authentication handling
+┃   ┗📜cookie_manager.py  # Manages browser cookies
+┣📂config/                # Configuration settings
+┃   ┗📜settings.py        # Project settings
+┣📂data/                  # Stored data
+┃   ┣ company_data.csv   # Company information
+┃   ┣📜job_details.csv    # Job listings data
+┃   ┗📜images/            # Stored images
+┣📂drivers/               # Web drivers
+┃   ┗📜chromedriver-win64/# Chrome driver for Selenium
+┣📂function_calling/      # External API interaction
+┣📂jobs/                  # Job data processing modules
+┣📂search_engine/         # Search functionality
+┣📂utils/                 # Utility functions
+┣📜main_search_engine.py  # Search engine implementation
+┣📜main.py                # Main entry point
+┣📜merge_csv.py           # CSV data processing
+┣📜userLogin.py           # User authentication
+┗📜requirements.txt       # Project dependencies
 
 # How It Works
 1. Web Scraping: The system automates Chrome browser using Selenium to navigate to job websites
