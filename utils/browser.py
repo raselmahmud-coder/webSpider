@@ -23,7 +23,7 @@ def create_driver(is_headless=False):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote("http://localhost:4444", options=options)
 
     if not is_headless:
         driver.maximize_window()

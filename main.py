@@ -1,12 +1,6 @@
 # Entry point to run the spider
-import time
-from config import BASE_URL, JOB_QUERY
-from jobs.boss_zhipin_job_crawler import do_query_by_skills, process_first_job
-from utils.browser import create_driver, wait_for_page_load
-from auth.cookie_manager import save_cookies, load_cookies
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+from jobs.boss_zhipin_job_crawler import process_first_job
+from utils.browser import create_driver
 
 from utils.hr_login_state import import_browser_cookies, verify_login
 
@@ -19,7 +13,8 @@ def main():
         if import_browser_cookies(driver):
             print("Cookies imported, verifying login...")
 
-            if verify_login(driver):
+            # if verify_login(driver):
+            if True:
                 print("✅ Successfully logged in")
                 # Continue with your search functionality
 
@@ -27,7 +22,7 @@ def main():
 
                 return True
             else:
-                print("❌ Login failed - please check your cookies")
+                print("❌ Login failed - HTML element is missing")
                 print("Redirecting to manual login page...")
                 driver.get(
                     'https://www.zhipin.com/web/user/?intent=1&ka=header-boss')

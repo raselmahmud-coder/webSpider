@@ -69,16 +69,18 @@ def verify_login(driver):
     try:
         # First check if we're redirected to login page
         driver.get('https://www.zhipin.com/web/chat/search')
+        # driver.get('https://www.zhipin.com/web/geek/recommend?ka=header-username')
         # Add explicit wait for page load
         driver.execute_script("return document.readyState") == "complete"
         wait = WebDriverWait(driver, 10)
 
         # Check for login indicators with descriptive names
         login_indicators = [
-            ("Card List", By.CSS_SELECTOR, ".card-list"),
-            ("Logout Button", By.CSS_SELECTOR, ".nav-item.nav-logout"),
+            ("Card List", By.CSS_SELECTOR,
+             ".headbox"),
+            ("Logout Button", By.CSS_SELECTOR, ".userinfo-banner"),
             ("Profile Card", By.CSS_SELECTOR,
-             "[class*='.geek-info-card.geek-info-card-gray1013']")
+             "[class*='.sider-title']")
         ]
 
         found_elements = []
